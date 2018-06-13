@@ -11,5 +11,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f26939428f2a1924b908aeeb114eddd4, type: 3}
   m_Name: GenerateCode
   m_EditorClassIdentifier: 
-  stringToUserp: BrendonUI
-  fileName: BrendonUI
+  stringToUserp: FirstUI
+  fileName: FirstUIEditor

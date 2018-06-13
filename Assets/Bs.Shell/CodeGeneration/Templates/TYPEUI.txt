@@ -1,9 +1,5 @@
-﻿using Shell;
-using System.Collections;
-using System.Collections.Generic;
+﻿using Bs.Shell.ScriptableObjects;
 using UnityEngine;
-using System;
-using Shell.UnityEssentials.ScriptableObjects;
 
 namespace Bs.Shell.UI
 {
