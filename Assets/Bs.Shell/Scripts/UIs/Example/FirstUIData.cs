@@ -6,5 +6,6 @@ namespace Bs.Shell.UI
     public class FirstUIData : UIData
     {
         public string message = "HelloWorld";
+        public bool loadSecondUI = true;
     }
 }

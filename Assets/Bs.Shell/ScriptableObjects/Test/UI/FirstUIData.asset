@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Name: FirstUIData
   m_EditorClassIdentifier: 
   message: HelloWorld
+  loadSecondUI: 1

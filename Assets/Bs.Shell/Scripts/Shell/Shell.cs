@@ -44,14 +44,14 @@ namespace Bs.Shell
         /// Dictate the type of UI to look for when scene is loaded.
         /// Pass in the UIDataEvent, you create and manage your own UIDataEvent.
         /// All UIs only add to the scene.
-        public WaitForUITokenYieldInstruction<TData, UIBase<TData>> LoadUIAsync<TData, TUI>(string path, UIDataEvent<TData> uiDataEvent, Transform parent = null)
+        public WaitForUITokenYieldInstruction<TData, UIBase<TData>> LoadUIAsync<TData, TUI>(string path, UIDataEvent<TData> uiDataEvent, Transform parent = null, LoadSceneMode loadSceneMode = LoadSceneMode.Additive)
             where TData : UIData
             where TUI : UIBase<TData>
         {
             WaitForUITokenYieldInstruction<TData, UIBase<TData>> waitForUIToken = new WaitForUITokenYieldInstruction<TData, UIBase<TData>>();
             waitForUIToken.uiToken = new UIToken<TData>(Guid.NewGuid());
             scene = null;
-            AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(path, LoadSceneMode.Additive);
+            AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(path, loadSceneMode);
             RunCoroutine.Instance.StartCoroutine(LoadUI<TData, TUI>(asyncOperation, waitForUIToken, path, uiDataEvent, parent));
             return waitForUIToken; 
         }
@@ -70,9 +70,17 @@ namespace Bs.Shell
                 if (ui != null)
                 {
                     loadedUIs.Add(waitForUIToken.uiToken.guid, ui);
-                    waitForUIToken.uiToken.uiDataEvent = uiDataEvent;
+                    if(uiDataEvent == null)
+                    {
+                        waitForUIToken.uiToken.uiDataEvent = ui.Event;
+                    }
+                    else
+                    {
+                        waitForUIToken.uiToken.uiDataEvent = uiDataEvent;
+                        ui.Event = uiDataEvent;
+                    }
                     waitForUIToken.uiToken.scene = scene.Value;
-                    ui.Event = uiDataEvent;
+                    
                     if (parent != null)
                         root.transform.SetParent(parent, true);
                 }
@@ -116,6 +124,7 @@ namespace Bs.Shell
         List<UIToken> uiTokensMarkedForDeath = new List<UIToken>();
         public void UnloadUI(UIToken uiToken)
         {
+            if (uiToken == null) return;
             if (uiTokensMarkedForDeath.Contains(uiToken))
             {
                 Debug.LogError("UIToken is marked for death!");
