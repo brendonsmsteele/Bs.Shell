@@ -1,0 +1,20 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEditor;
+
+namespace Bs.Shell
+{
+	[CustomEditor(typeof(TEMPLATE))]
+	public class TEMPLATEEditor : Editor
+	{
+		public override void OnInspectorGUI()
+		{
+			DrawDefaultInspector();
+			TEMPLATE myTarget = (TEMPLATE)target;
+
+			if (GUILayout.Button("Button"))
+				Debug.Log("Click");
+		}
+	}
+}

@@ -1,0 +1,35 @@
+﻿using Shell;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using System;
+using Shell.UnityEssentials.ScriptableObjects;
+
+namespace Bs.Shell.UI
+{
+	[CreateAssetMenu(fileName = "TEMPLATEData", menuName = "UIData/TEMPLATEData")]
+	public class TEMPLATEData : UIData
+	{
+
+	}
+	[CreateAssetMenu(fileName = "TEMPLATEDataEvent", menuName = "UIDataEvent/TEMPLATEDataEvent")]
+	public class TEMPLATEDataEvent : UIDataEvent<TEMPLATEData>, IUIDataEvent { }
+
+	public class TEMPLATE : UIBase<TEMPLATEData>
+	{
+		// Use this for initialization
+		protected override void Start () {
+		
+		}
+
+		// Update is called once per frame
+		protected override void Update () {
+		
+		}
+
+		public override void Bind(TEMPLATEData data)
+		{
+
+		}
+	}
+}
