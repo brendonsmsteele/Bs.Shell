@@ -1,3 +1,4 @@
+using Bs.Shell.ScriptableObjects;
 using UnityEngine;
 
 namespace Bs.Shell.UI
@@ -6,5 +7,7 @@ namespace Bs.Shell.UI
     public class SecondUIData : UIData
     {
         public string message = "HelloWorld";
+        public GameObject prefab;
+        public InterpolateReferenceSet interpolateRefSet;
     }
 }

@@ -1,12 +1,12 @@
-﻿using UnityEngine;
+﻿using Bs.Shell.ScriptableObjects;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Bs.Shell.Examples
 {
     public class Item : MonoBehaviour
     {
-        public Image image;
-        public Text text;
+        public InterpolateReference interpolateReference;
 
         // Use this for initialization
         void Start()
@@ -17,13 +17,13 @@ namespace Bs.Shell.Examples
         // Update is called once per frame
         void Update()
         {
-
+            if (interpolateReference != null)
+                Debug.Log(interpolateReference);
         }
 
-        public void Bind(TestData data)
+        public void Bind(InterpolateReference target)
         {
-            image.color = data.color;
-            text.text = data.id.ToString();
+            interpolateReference = target;
         }
     }
 }
