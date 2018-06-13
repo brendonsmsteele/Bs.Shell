@@ -11,6 +11,15 @@ namespace Bs.Shell.UI
 
         protected override void Start()
         {
+            //  When you call items.Update(myList);...  
+            //  DiffableDictionary auto detects new, same, or missing items, and will call the functions that you pass in.
+            //  new items call Add() then Update();
+            //  same items call Update();
+            //  missing items call Remove();
+            //  Refresh() is called at the end of the entire process.  You may want to tell your items to animate or something.
+            //  Notice you pass in your own functions!
+            //  This is very good for instantiating prefabs based off of a list of data.
+            //  DiffableDictionary gives you a Key/Value link between your data and your component.
             items = new DiffableDictionary<InterpolateReference, Item>
                 (
                     (data) =>
@@ -41,5 +50,10 @@ namespace Bs.Shell.UI
             else
                 items.Update(data.interpolateRefSet.Items);
 		}
-	}
+
+        public override void Refresh()
+        {
+            Debug.Log("Complete");
+        }
+    }
 }

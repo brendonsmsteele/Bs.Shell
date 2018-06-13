@@ -8,6 +8,23 @@ namespace Bs.Shell.Examples
     {
         public InterpolateReference interpolateReference;
 
+        float? _interpolateValue;
+        float? interpolateValue
+        {
+            get
+            {
+                return _interpolateValue;
+            }
+            set
+            {
+                if(_interpolateValue != value)
+                {
+                    _interpolateValue = value;
+                    Debug.Log(_interpolateValue);
+                }
+            }
+        }
+
         // Use this for initialization
         void Start()
         {
@@ -18,7 +35,9 @@ namespace Bs.Shell.Examples
         void Update()
         {
             if (interpolateReference != null)
-                Debug.Log(interpolateReference);
+            {
+                interpolateValue = interpolateReference.Value;
+            }
         }
 
         public void Bind(InterpolateReference target)

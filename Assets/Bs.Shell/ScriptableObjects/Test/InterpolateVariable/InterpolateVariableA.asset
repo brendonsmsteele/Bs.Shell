@@ -9,5 +9,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: af5dbb31274947d47ad0aaec1fe49a3e, type: 3}
-  m_Name: InterpolateVariable
+  m_Name: InterpolateVariableA
   m_EditorClassIdentifier: 

@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Name: SecondUIData
   m_EditorClassIdentifier: 
   message: HelloWorld
+  prefab: {fileID: 1200479393617246, guid: 6640b6196a1244847bf4baa89e60fd67, type: 2}
+  interpolateRefSet: {fileID: 11400000, guid: 400cdd26b09f0d240891efc31e48cbd6, type: 2}
