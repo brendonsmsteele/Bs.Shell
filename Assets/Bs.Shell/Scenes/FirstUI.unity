@@ -259,6 +259,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1637248136}
+  - component: {fileID: 1637248137}
   m_Layer: 0
   m_Name: FirstUI
   m_TagString: Untagged
@@ -281,3 +282,15 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1637248137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1637248135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d12760fa640071e4f90d6e7b0278232f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Event: {fileID: 11400000, guid: 16611a1f1615adb4d8545bb787537400, type: 2}

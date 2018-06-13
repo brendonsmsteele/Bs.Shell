@@ -1,15 +1,15 @@
-﻿using UnityEditor;
+using UnityEditor;
 using UnityEngine;
 
 namespace Bs.Shell.UI
 {
-    [CustomEditor(typeof(TEMPLATEUIDataEvent))]
-    public class TEMPLATEUIDataEventEditor : Editor
+    [CustomEditor(typeof(FirstUIDataEvent))]
+    public class FirstUIDataEventEditor : Editor
     {
         public override void OnInspectorGUI()
         {
             DrawDefaultInspector();
-            TEMPLATEUIDataEvent myTarget = (TEMPLATEUIDataEvent)target;
+            FirstUIDataEvent myTarget = (FirstUIDataEvent)target;
 
             if (Application.isPlaying && myTarget.fakeData != null)
             {

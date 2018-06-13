@@ -5,13 +5,18 @@ using UnityEngine;
 [CreateAssetMenu]
 public class GenerateCode : ScriptableObject
 {
-    public string stringToUserp;
+    public string className;
     public string fileName;
 
     public void GenerateUIScript()
     {
-        GenerateTemplate(fileName, "TYPEUI");
-        GenerateTemplate(fileName + "DataEventEditor", "TYPEUIDataEventEditor", "Generated\\Editor");
+        string classNameSansUI = className.Replace("UI", "");
+        string fileNameSansUI = fileName.Replace("UI", "");
+        fileNameSansUI += "UI";
+        GenerateTemplate(classNameSansUI, fileNameSansUI, "TYPEUI");
+        GenerateTemplate(classNameSansUI, fileNameSansUI + "Data", "TypeUIData");
+        GenerateTemplate(classNameSansUI, fileNameSansUI + "DataEvent", "TypeUIDataEvent");
+        GenerateTemplate(classNameSansUI, fileNameSansUI + "DataEventEditor", "TYPEUIDataEventEditor", "Generated\\Editor");
     }
 
     public void GenerateButtonEditorScript()
@@ -19,7 +24,7 @@ public class GenerateCode : ScriptableObject
         GenerateTemplate(fileName, "TYPEButtonEditor", "Generated\\Editor");
     }
 
-    void GenerateTemplate(string newName, string templateName, string outputPath = "Generated")
+    void GenerateTemplate(string cleanedClassName, string cleanedFileName, string templateName, string outputPath = "Generated")
     {
         //  Read Template
         string thisPath = AssetDatabase.GetAssetPath(this);
@@ -27,12 +32,12 @@ public class GenerateCode : ScriptableObject
         string templatePath = Path.Combine(parentPath, "Templates\\" + templateName) + ".txt";
         string template = File.ReadAllText(templatePath);
         //  Replace Variable
-        string result = template.Replace("TEMPLATE", stringToUserp);
+        string result = template.Replace("TEMPLATE", cleanedClassName);
         //  Output result and create directory if needed
         string generatedCodePath = Path.Combine(parentPath, outputPath);
         if (!Directory.Exists(generatedCodePath))
             Directory.CreateDirectory(generatedCodePath);
-        generatedCodePath = Path.Combine(generatedCodePath, newName) + ".cs";
+        generatedCodePath = Path.Combine(generatedCodePath, cleanedFileName) + ".cs";
         File.WriteAllText(generatedCodePath, result);
         // Refresh the asset database to show the (potentially) new file
         AssetDatabase.Refresh();

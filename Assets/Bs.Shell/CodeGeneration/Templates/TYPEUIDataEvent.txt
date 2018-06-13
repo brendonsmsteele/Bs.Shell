@@ -1,0 +1,8 @@
+﻿using Bs.Shell.ScriptableObjects;
+using UnityEngine;
+
+namespace Bs.Shell.UI
+{
+    [CreateAssetMenu(fileName = "TEMPLATEUIDataEvent", menuName = "Bs.Shell/UIDataEvent/TEMPLATEUIDataEvent")]
+    public class TEMPLATEUIDataEvent : UIDataEvent<TEMPLATEUIData>, IUIDataEvent { }
+}

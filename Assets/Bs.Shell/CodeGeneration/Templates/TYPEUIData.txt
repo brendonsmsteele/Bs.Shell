@@ -1,0 +1,10 @@
+﻿using UnityEngine;
+
+namespace Bs.Shell.UI
+{
+    [CreateAssetMenu(fileName = "TEMPLATEUIData", menuName = "Bs.Shell/UIData/TEMPLATEUIData")]
+    public class TEMPLATEUIData : UIData
+    {
+        public string message = "HelloWorld";
+    }
+}

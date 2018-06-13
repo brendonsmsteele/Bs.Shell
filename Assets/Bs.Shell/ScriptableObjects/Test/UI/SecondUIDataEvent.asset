@@ -8,6 +8,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: FirstUIData
-  m_EditorClassIdentifier: Assembly-CSharp:Bs.Shell.UI:FirstUIData
+  m_Script: {fileID: 11500000, guid: 3448dc5d1399e5a4a9f789907c78c810, type: 3}
+  m_Name: SecondUIDataEvent
+  m_EditorClassIdentifier: 
+  fakeData: {fileID: 11400000, guid: 4a6d4cfa6cb078043bcb25fd806b3e0b, type: 2}

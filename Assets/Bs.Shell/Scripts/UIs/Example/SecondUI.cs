@@ -1,9 +1,9 @@
-﻿using Bs.Shell.ScriptableObjects;
+using Bs.Shell.ScriptableObjects;
 using UnityEngine;
 
 namespace Bs.Shell.UI
 {
-	public class TEMPLATEUI : UIBase<TEMPLATEUIData>
+	public class SecondUI : UIBase<SecondUIData>
 	{
 		// Use this for initialization
 		protected override void Start () {
@@ -15,7 +15,7 @@ namespace Bs.Shell.UI
 		
 		}
 
-		public override void Bind(TEMPLATEUIData data)
+		public override void Bind(SecondUIData data)
 		{
             Debug.Log(data.message);
 		}
