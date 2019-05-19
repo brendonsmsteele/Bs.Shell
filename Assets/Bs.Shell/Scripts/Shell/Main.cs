@@ -11,7 +11,7 @@ namespace Bs.Shell.Navigation
             //  Init the Shell
             InitShell();
             InitServices();
-            NavigateToFirstPage();
+            GoToFirstPage();
         }
 
         private void InitShell()
@@ -25,7 +25,7 @@ namespace Bs.Shell.Navigation
             services.Init();
         }
 
-        private void NavigateToFirstPage()
+        private void GoToFirstPage()
         {
             services.NavigationMap.Navigate(NavigationTriggers.Next);
         }

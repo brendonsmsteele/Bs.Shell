@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Bs.Shell.Navigation
 {
-    [CreateAssetMenu(fileName =nameof(NavigationMap), menuName ="Bs.Shell/" + nameof(NavigationMap))]
+    [CreateAssetMenu(fileName =nameof(NavigationMap), menuName ="Bs.Shell/Navigation/" + nameof(NavigationMap))]
     public class NavigationMap : ScriptableObject
     {
         [SerializeField] NavigationMapTree navigationMapTreeReference;

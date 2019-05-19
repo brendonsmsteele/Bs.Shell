@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "GenerateCode", menuName = "Bs.Shell/GenerateCode")]
+[CreateAssetMenu(fileName = nameof(GenerateCode), menuName = "Bs.Shell/App/"+nameof(GenerateCode))]
 public class GenerateCode : ScriptableObject
 {
     public string className;

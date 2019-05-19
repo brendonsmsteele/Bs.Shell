@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Bs.Shell.EditorVariables
 {
-    [CreateAssetMenu(fileName = nameof(GameEvent), menuName = "Bs.Shell/ScriptableObjects/" + nameof(GameEvent))]
+    [CreateAssetMenu(fileName = nameof(GameEvent), menuName = "Bs.Shell/EditorVariables/" + nameof(GameEvent))]
     public class GameEvent : ScriptableObject
     {
         List<GameEventListener> listeners = new List<GameEventListener>();

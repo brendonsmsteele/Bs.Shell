@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Bs.Shell.Navigation
 {
-    [CreateAssetMenu(fileName = nameof(NavigationPage), menuName = "Bs/Shell/Navigation/" + nameof(NavigationPage))]
+    [CreateAssetMenu(fileName = nameof(NavigationPage), menuName = "Bs.Shell/Navigation/" + nameof(NavigationPage))]
     public class NavigationPage : ScriptableObject
     {
         public List<ControllerData> ActiveControllers;

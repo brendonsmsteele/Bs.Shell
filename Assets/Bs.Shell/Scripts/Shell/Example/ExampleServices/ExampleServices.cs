@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Add on your own services!
+/// </summary>
 namespace Bs.Shell.Example
 {
-    [CreateAssetMenu(fileName = nameof(ExampleServices), menuName = "Bs.Shell/Example" + nameof(ExampleServices))]
+    [CreateAssetMenu(fileName = nameof(ExampleServices), menuName = "Bs.Shell/Example/" + nameof(ExampleServices))]
     public class ExampleServices : ShellServices
     {
         //  Add your own services.
