@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 namespace Bs.Shell
 {
-    [CreateAssetMenu(fileName = "App", menuName = "Bs.Shell/App")]
+    [CreateAssetMenu(fileName = nameof(App), menuName = "Bs.Shell/" + nameof(App))]
     public class App : ScriptableObject
     {
         static App _instance;

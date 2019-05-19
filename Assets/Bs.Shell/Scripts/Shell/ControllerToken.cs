@@ -1,5 +1,6 @@
 ﻿using Bs.Shell.EditorVariables;
 using System;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Bs.Shell
@@ -18,9 +19,31 @@ namespace Bs.Shell
         {
             return (IsLoaded() && guid == otherUIToken.guid);
         }
+
+        /// <summary>
+        /// Only use this if you know data is of type TData.
+        /// </summary>
+        /// <param name="data"></param>
+        public override void Raise(ControllerData data)
+        {
+            if (data is TData)
+            {
+                var tData = (TData)data;
+                Raise(tData);
+            }
+            else
+                Debug.LogError("Data is not of correct type -> " + nameof(TData) );
+        }
+
+        public void Raise(TData tdata)
+        {
+            if (!IsLoaded())
+                return;
+            controllerDataEvent.Raise(tdata);
+        }
     }
 
-    public class ControllerToken
+    public abstract class ControllerToken
     {
         public Guid guid;
         public Scene scene;
@@ -36,5 +59,7 @@ namespace Bs.Shell
         {
             return IsLoaded() && !preloadingSceneAssets;
         }
+
+        public abstract void Raise(ControllerData data);
     }
 }

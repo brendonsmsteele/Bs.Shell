@@ -47,6 +47,19 @@ namespace Bs.Shell
             return false;
         }
 
+
+        public static void GetTriggers(this Animator animator, List<string> triggers)
+        {
+            var parameters = animator.parameters;
+            foreach (var currParam in parameters)
+            {
+                if (currParam.type == AnimatorControllerParameterType.Trigger)
+                {
+                    triggers.Add(currParam.name);
+                }
+            }
+        }
+
         public static void SetTriggerSingle(this Animator self, string trigger)
         {
             foreach (var param in self.parameters)
@@ -86,5 +99,7 @@ namespace Bs.Shell
             go.transform.localScale = Vector3.one;
             return go;
         }
+
+
     }
 }
