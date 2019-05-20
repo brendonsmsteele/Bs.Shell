@@ -1,19 +1,19 @@
-﻿using UnityEngine;
+using UnityEngine;
 
-namespace Bs.Shell.Example
+namespace Bs.Shell.Hello
 {
-    public class ExampleController : ControllerBase<ExampleControllerData>
+    public class HelloController : ControllerBase<HelloControllerData>
     {
         [SerializeField]
         private ShellServices services;
 
-        public override void Bind(ExampleControllerData data)
+        public override void Bind(HelloControllerData data)
         {
         }
 
         public override ManualYieldInstruction Dispose()
         {
-            //  Example of how to delay dispose, for exit animations.
+            //  Hello of how to delay dispose, for exit animations.
             return GetTimedYield(1.2f);
             //return NavigationMapController.Instance.AllActiveControllersAreLoaded;
             return base.Dispose();

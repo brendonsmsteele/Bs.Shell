@@ -12,12 +12,10 @@ namespace Bs.Shell.CodeGeneration
 
         public void Generate()
         {
-            string nameSansController = name.Replace("Controller", "");
-            string cleanedName = nameSansController + "Controller";
-            GenerateTemplate(cleanedName, exampleController);
-            GenerateTemplate(cleanedName, exampleControllerData);
-            GenerateTemplate(cleanedName, exampleControllerDataEvent);
-            GenerateTemplate(cleanedName, exampleControllerDataEventEditor, "Generated\\Editor");
+            GenerateTemplate(@namespace, exampleController);
+            GenerateTemplate(@namespace, exampleControllerData);
+            GenerateTemplate(@namespace, exampleControllerDataEvent);
+            GenerateTemplate(@namespace, exampleControllerDataEventEditor, "/Editor");
         }
     }
 }

@@ -6,15 +6,16 @@ namespace Bs.Shell.CodeGeneration
 {
     public abstract class Generate : ScriptableObject
     {
-        [SerializeField] string name;
+        [SerializeField] protected string @namespace;
 
-        protected void GenerateTemplate(string cleanedName, Object templateReference, string outputPath = "Generated")
+        protected void GenerateTemplate(string cleanedName, Object templateReference, string outputPath = "")
         {
             string pathOfUnityObject = GetPathOfUnityObject(templateReference);
             string template = ReadTextOfUnityObject(pathOfUnityObject);
-            string result = ReplaceAllInstancesOfExampleWithCleanName("Example", cleanedName);
-            string outputFolder = FindOutputFolder(outputPath);
-            string finalPath = GenerateFinalPath(outputFolder, cleanedName);
+            string result = ReplaceAllInstancesOfExampleWithCleanName(template, cleanedName);
+            string outputFolder = FindOutputFolder("Generated/" + cleanedName + outputPath);
+            string finalName = GenerateFinalName(cleanedName, templateReference.name);
+            string finalPath = GenerateFinalPath(outputFolder, finalName);
             WriteTheFileToText(finalPath, result);
         }
 
@@ -46,6 +47,11 @@ namespace Bs.Shell.CodeGeneration
             if (!Directory.Exists(pathToOutputFolder))
                 Directory.CreateDirectory(pathToOutputFolder);
             return pathToOutputFolder;
+        }
+
+        protected string GenerateFinalName(string cleanedName, string templateReferenceName)
+        {
+            return templateReferenceName.Replace("Example", cleanedName);
         }
 
         protected string GenerateFinalPath(string pathToOutputFolder, string cleanedName)
