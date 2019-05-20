@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3433b28f6eb2f684baa2b285c419cc77, type: 3}
+  m_Name: GenerateController
+  m_EditorClassIdentifier: 
+  name: Hello
+  exampleController: {fileID: 11500000, guid: 3f9f34adb87e82a4eb77b62c0136da68, type: 3}
+  exampleControllerData: {fileID: 11500000, guid: 532c4bf9528f8f34a845008cdcec60b1,
+    type: 3}
+  exampleControllerDataEvent: {fileID: 11500000, guid: 45a951719db40a548a046a60fb1544e5,
+    type: 3}
+  exampleControllerDataEventEditor: {fileID: 11500000, guid: a3bb4b074182a8c41b8b20da7cff3125,
+    type: 3}
