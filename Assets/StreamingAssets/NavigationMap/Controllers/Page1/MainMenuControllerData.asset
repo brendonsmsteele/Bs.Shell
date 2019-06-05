@@ -9,6 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bdf9145f1af665241ae5fd9dd1880c2b, type: 3}
-  m_Name: NavigationPageGenerator
+  m_Script: {fileID: 11500000, guid: 3aa9d7ccd37c8804b826b6e51c771e57, type: 3}
+  m_Name: MainMenuControllerData
   m_EditorClassIdentifier: 
+  Message: 
+  Sprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
