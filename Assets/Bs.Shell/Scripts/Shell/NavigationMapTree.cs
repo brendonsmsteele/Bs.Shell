@@ -15,6 +15,25 @@ namespace Bs.Shell.Navigation
                 return _animator;
             }
         }
+
+        [SerializeField] AnimatorStateChangedBroadcaster animatorStateChangedBroadcaster;
+
+        public event AnimatorStateChangedBroadcaster.OnStateChangedDelegate OnStateChanged;
+
+        private void OnEnable()
+        {
+            animatorStateChangedBroadcaster.OnStateChanged += AnimatorStateChangedBroadcaster_OnStateChanged;
+        }
+
+        private void OnDisable()
+        {
+            animatorStateChangedBroadcaster.OnStateChanged -= AnimatorStateChangedBroadcaster_OnStateChanged;
+        }
+
+        private void AnimatorStateChangedBroadcaster_OnStateChanged(string clipName)
+        {
+            OnStateChanged?.Invoke(clipName);
+        }
     }
 }
 

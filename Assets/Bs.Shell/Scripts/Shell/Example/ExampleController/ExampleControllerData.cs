@@ -2,7 +2,7 @@
 
 namespace Bs.Shell.Example
 {
-    [CreateAssetMenu(fileName = nameof(ExampleControllerData), menuName = "Bs.Shell/Example/" + nameof(ExampleControllerData))]
+    [CreateAssetMenu(fileName = nameof(ExampleControllerData), menuName = "Bs.Shell/Controllers/" + nameof(ExampleControllerData))]
     public class ExampleControllerData : ControllerData
     {
         public static ExampleControllerData Create()

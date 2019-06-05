@@ -8,6 +8,8 @@ namespace Bs.Shell.Navigation
     [CreateAssetMenu(fileName =nameof(NavigationMap), menuName ="Bs.Shell/Navigation/" + nameof(NavigationMap))]
     public class NavigationMap : ScriptableObject
     {
+        [SerializeField] NavigationPageLoader navigationPageLoader;
+
         [SerializeField] NavigationMapTree navigationMapTreeReference;
         NavigationMapTree _navigationMapTree;
         NavigationMapTree navigationMapTree
@@ -17,29 +19,35 @@ namespace Bs.Shell.Navigation
                 if(_navigationMapTree == null)
                 {
                     var clone = Instantiate(navigationMapTreeReference.gameObject);
-                    DontDestroyOnLoad(clone);
+                    //DontDestroyOnLoad(clone);
                     _navigationMapTree = clone.GetComponent<NavigationMapTree>();
+                    _navigationMapTree.OnStateChanged += _navigationMapTree_OnStateChanged;
                 }
                 return _navigationMapTree;
             }
         }
 
-        //  Consider making this more generic.  
-        [SerializeField] NavigationMapView navigationMapViewReference;
-        NavigationMapView _navigationMapView;
-        NavigationMapView navigationMapView
+        private void _navigationMapTree_OnStateChanged(string clipName)
         {
-            get
-            {
-                if (_navigationMapView == null)
-                {
-                    var clone = Instantiate(navigationMapView.gameObject);
-                    DontDestroyOnLoad(clone);
-                    _navigationMapView = clone.GetComponent<NavigationMapView>();
-                }
-                return _navigationMapView;
-            }
+            NavigateToPage(clipName);
         }
+
+        //  Consider making this more generic.  
+        //[SerializeField] NavigationMapView navigationMapViewReference;
+        //NavigationMapView _navigationMapView;
+        //NavigationMapView navigationMapView
+        //{
+        //    get
+        //    {
+        //        if (_navigationMapView == null)
+        //        {
+        //            var clone = Instantiate(navigationMapView.gameObject);
+        //            DontDestroyOnLoad(clone);
+        //            _navigationMapView = clone.GetComponent<NavigationMapView>();
+        //        }
+        //        return _navigationMapView;
+        //    }
+        //}
 
         DiffableDictionary<ControllerData, ControllerToken> _activeControllers;
         DiffableDictionary<ControllerData, ControllerToken> ActiveControllers
@@ -119,28 +127,31 @@ namespace Bs.Shell.Navigation
                 if (_showNavPanel != value)
                 {
                     _showNavPanel = value;
-                    navigationMapView.Bind(new NavigationMapViewModel(GetTriggers(), _showNavPanel));
+                    //navigationMapView.Bind(new NavigationMapViewModel(GetTriggers(), _showNavPanel));
                 }
             }
         }
         #endregion
 
-        // Use this for initialization
         public void Init()
         {
-            navigationMapView.Bind(new NavigationMapViewModel(GetTriggers(), false));
-            navigationMapView.OnMessage += NavigationMapView_OnMessage;
+            //navigationMapView.Bind(new NavigationMapViewModel(GetTriggers(), false));
+            //navigationMapView.OnMessage += NavigationMapView_OnMessage;
+            navigationPageLoader.Init();
         }
 
         public void OnDisable()
         {
-            Dispose();
+            if (Application.isPlaying)
+            {
+                Dispose();
+            }
         }
 
         void Dispose()
         {
             Destroy(navigationMapTree.gameObject);
-            Destroy(navigationMapView.gameObject);
+            //Destroy(navigationMapView.gameObject);
         }
 
 
@@ -152,6 +163,11 @@ namespace Bs.Shell.Navigation
         public void NavigateToPage(NavigationPage navigationPage)
         {
             ActiveControllers.Update(navigationPage.ActiveControllers);
+        }
+
+        public void NavigateToPage(string pageName)
+        {
+            navigationPageLoader.GetPage(pageName);
         }
 
         /// <summary>

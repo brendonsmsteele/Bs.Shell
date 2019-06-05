@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3433b28f6eb2f684baa2b285c419cc77, type: 3}
   m_Name: GenerateController
   m_EditorClassIdentifier: 
-  namespace: Hello
+  namespace: BG
   exampleController: {fileID: 11500000, guid: 3f9f34adb87e82a4eb77b62c0136da68, type: 3}
   exampleControllerData: {fileID: 11500000, guid: 532c4bf9528f8f34a845008cdcec60b1,
     type: 3}
