@@ -10,15 +10,14 @@ namespace Bs.Shell.Navigation
     {
         [SerializeField] NavigationPageLoader navigationPageLoader;
 
-        [SerializeField] NavigationMapTree navigationMapTreeReference;
         NavigationMapTree _navigationMapTree;
-        NavigationMapTree navigationMapTree
+        public NavigationMapTree NavigationMapTree
         {
             get
             {
                 if(_navigationMapTree == null)
                 {
-                    var clone = Instantiate(navigationMapTreeReference.gameObject);
+                    var clone = Instantiate(Resources.Load("NavigationMapAnimator")) as GameObject;
                     //DontDestroyOnLoad(clone);
                     _navigationMapTree = clone.GetComponent<NavigationMapTree>();
                     _navigationMapTree.OnStateChanged += _navigationMapTree_OnStateChanged;
@@ -150,7 +149,7 @@ namespace Bs.Shell.Navigation
 
         void Dispose()
         {
-            Destroy(navigationMapTree.gameObject);
+            Destroy(NavigationMapTree.gameObject);
             //Destroy(navigationMapView.gameObject);
         }
 
@@ -177,7 +176,7 @@ namespace Bs.Shell.Navigation
         public void Navigate(string destination)
         {
             Debug.Log("Navigate to " + destination);
-            navigationMapTree.Animator.Value.SetTrigger(destination);
+            NavigationMapTree.Animator.SetTrigger(destination);
             _lastNavigatedTrigger = destination;
         }
 
@@ -201,7 +200,7 @@ namespace Bs.Shell.Navigation
         List<string> GetTriggers()
         {
             var triggers = new List<string>();
-            navigationMapTree.Animator.Value.GetTriggers(triggers);
+            NavigationMapTree.Animator.GetTriggers(triggers);
             return triggers;
         }
 

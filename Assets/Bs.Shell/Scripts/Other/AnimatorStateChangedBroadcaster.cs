@@ -8,7 +8,7 @@ namespace Bs.Shell
         public delegate void OnStateChangedDelegate(int currentStateHash);
         public event OnStateChangedDelegate OnStateChanged;
 
-        Attached<Animator> animator;
+        [SerializeField]Animator animator;
 
         int _currentStateInfo;
         int currentStateInfo
@@ -25,7 +25,7 @@ namespace Bs.Shell
 
         private void Update()
         {
-            currentStateInfo = animator.Value.GetCurrentAnimatorStateInfo(0).fullPathHash;
+            currentStateInfo = animator.GetCurrentAnimatorStateInfo(0).GetHashCode();
         }
     }
 }

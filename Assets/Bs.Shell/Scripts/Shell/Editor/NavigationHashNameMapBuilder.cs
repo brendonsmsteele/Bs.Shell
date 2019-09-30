@@ -1,65 +1,69 @@
-﻿using System.Collections.Generic;
+﻿#if UNITY_EDITOR
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.Animations;
 using UnityEngine;
 
 namespace Bs.Shell.Navigation
 {
-    [ExecuteInEditMode]
-    [CreateAssetMenu(menuName ="Create/" + nameof(NavigationHashNameMapBuilder), fileName = nameof(NavigationHashNameMapBuilder))]
-    public class NavigationHashNameMapBuilder : ScriptableObject
+    [InitializeOnLoad]
+    public static class NavigationHashNameMapBuilder
     {
-        [SerializeField] GameObject navigationMapAnimator;
-        AnimatorController animatorController
+        static NavigationHashNameMapBuilder()
         {
-            get
+            EditorApplication.playModeStateChanged += LoadDefaultScene;
+        }
+
+        static void LoadDefaultScene(PlayModeStateChange state)
+        {
+            if (state == PlayModeStateChange.EnteredPlayMode)
             {
-                return navigationMapAnimator.GetComponent<Animator>().runtimeAnimatorController as AnimatorController;
+                BuildHashNameMap();
             }
         }
 
-        bool _isPlayingOrWillChangePlaymode = false;
-        bool isPlayingOrWillChangePlaymode
-        {
-            set
-            {
-                if(_isPlayingOrWillChangePlaymode != value)
-                {
-                    _isPlayingOrWillChangePlaymode = value;
-                    if (value)
-                        BuildHashNameMap();
-                }
-            }
-        }
-
-        public void OnDisable()
-        {
-            isPlayingOrWillChangePlaymode = EditorApplication.isPlayingOrWillChangePlaymode;
-        }
-
-        public void BuildHashNameMap()
+        static void BuildHashNameMap()
         {
             Debug.Log("BuildHashNameMap");
+            var NavigationMapAnimator = Resources.Load("NavigationMapAnimator") as GameObject;
+            var animatorController = NavigationMapAnimator.GetComponent<Animator>().runtimeAnimatorController as AnimatorController;
             NavigationHashName.Map = new Dictionary<int, string>();
-            ProcessSingleLayer(animatorController.layers[0]);
+            Process(animatorController.layers[0]);
             PrintHashNameMap();
         }
 
-        private void ProcessSingleLayer(AnimatorControllerLayer layer)
+        static void Process(AnimatorControllerLayer layer)
         {
-            for (int i = 0; i < layer.stateMachine.anyStateTransitions.Length; i++)
+            Process(layer.stateMachine);
+        }
+
+        static void Process(AnimatorStateMachine animatorStateMachine)
+        {
+            //  Add all states
+            Process(animatorStateMachine.states);
+            //  Recursive
+            for (int i = 0; i < animatorStateMachine.stateMachines.Length; i++)
             {
-                var stateTransition = layer.stateMachine.anyStateTransitions[i];
-                ProcessAnimatorStateTransitions(stateTransition);
+                var childAnimatorStateMachine = animatorStateMachine.stateMachines[i];
+                Process(childAnimatorStateMachine.stateMachine);
             }
         }
 
-        private void ProcessAnimatorStateTransitions(AnimatorStateTransition animatorStateTransition)
+        static void Process(ChildAnimatorState[] childAnimatorStates)
         {
-            NavigationHashName.Map.Add(animatorStateTransition.GetHashCode(), animatorStateTransition.name);
+            for (int i = 0; i < childAnimatorStates.Length; i++)
+            {
+                var state = childAnimatorStates[i].state;
+                Process(state);
+            }
         }
 
-        private void PrintHashNameMap()
+        static void Process(AnimatorState animatorState)
+        {
+            NavigationHashName.Map.Add(animatorState.GetHashCode(), animatorState.name);
+        }
+
+        static void PrintHashNameMap()
         {
             foreach (KeyValuePair<int, string> kvp in NavigationHashName.Map)
             {
@@ -67,10 +71,11 @@ namespace Bs.Shell.Navigation
             }
         }
 
-        private void PrintKeyValuePair(KeyValuePair<int, string> kvp)
+        static void PrintKeyValuePair(KeyValuePair<int, string> kvp)
         {
             var p = $"Hash equals {kvp.Key} : Name equals {kvp.Value}";
             Debug.Log(p);
         }
     }
 }
+#endif

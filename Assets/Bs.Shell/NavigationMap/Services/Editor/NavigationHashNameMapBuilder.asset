@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   navigationMapAnimator: {fileID: 8598114342968516514, guid: 2e99676fba5504b4eab3e6d71cd9754f,
     type: 3}
+  _isPlayingOrWillChangePlaymode: 0

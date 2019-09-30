@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8598114342651636444}
   - component: {fileID: 1235607733261690632}
   m_Layer: 0
-  m_Name: NavigationMapAnimator
+  m_Name: NavigationMapTree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -64,6 +64,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73785a1420a0b7e44989297aa4bed037, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Animator: {fileID: 8598114342968516517}
   animatorStateChangedBroadcaster: {fileID: 1235607733261690632}
 --- !u!114 &1235607733261690632
 MonoBehaviour:
@@ -77,3 +78,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a524bda9f0ffdb43a0637e0cfbae62f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 8598114342968516517}
