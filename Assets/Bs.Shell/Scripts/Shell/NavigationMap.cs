@@ -177,7 +177,7 @@ namespace Bs.Shell.Navigation
         public void Navigate(string destination)
         {
             Debug.Log("Navigate to " + destination);
-            navigationMapTree.Animator.SetTrigger(destination);
+            navigationMapTree.Animator.Value.SetTrigger(destination);
             _lastNavigatedTrigger = destination;
         }
 
@@ -201,7 +201,7 @@ namespace Bs.Shell.Navigation
         List<string> GetTriggers()
         {
             var triggers = new List<string>();
-            navigationMapTree.Animator.GetTriggers(triggers);
+            navigationMapTree.Animator.Value.GetTriggers(triggers);
             return triggers;
         }
 

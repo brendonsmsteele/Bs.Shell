@@ -5,36 +5,27 @@ namespace Bs.Shell
     [RequireComponent(typeof(Animator))]
     public class AnimatorStateChangedBroadcaster : MonoBehaviour
     {
-        public delegate void OnStateChangedDelegate(string clipName);
+        public delegate void OnStateChangedDelegate(int currentStateHash);
         public event OnStateChangedDelegate OnStateChanged;
 
-        Animator _animator;
-        Animator animator
-        {
-            get
-            {
-                if (_animator == null)
-                    _animator = GetComponent<Animator>();
-                return _animator;
-            }
-        }
+        Attached<Animator> animator;
 
-        string _currentClip;
-        string currentClip
+        int _currentStateInfo;
+        int currentStateInfo
         {
             set
             {
-                if(_currentClip != value)
+                if(_currentStateInfo != value)
                 {
-                    _currentClip = value;
-                    OnStateChanged?.Invoke(_currentClip);
+                    _currentStateInfo = value;
+                    OnStateChanged?.Invoke(_currentStateInfo);
                 }
             }
         }
 
-        void Update()
+        private void Update()
         {
-            currentClip = animator.GetCurrentAnimatorClipInfo(0)[0].clip.name;
+            currentStateInfo = animator.Value.GetCurrentAnimatorStateInfo(0).fullPathHash;
         }
     }
 }

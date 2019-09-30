@@ -5,33 +5,26 @@ namespace Bs.Shell.Navigation
     [RequireComponent(typeof(Animator))]
     public class NavigationMapTree : MonoBehaviour
     {
-        Animator _animator;
-        public Animator Animator
-        {
-            get
-            {
-                if (_animator == null)
-                    _animator = GetComponent<Animator>();
-                return _animator;
-            }
-        }
+        public Attached<Animator> Animator;
 
-        [SerializeField] AnimatorStateChangedBroadcaster animatorStateChangedBroadcaster;
+        Attached<AnimatorStateChangedBroadcaster> animatorStateChangedBroadcaster;
 
-        public event AnimatorStateChangedBroadcaster.OnStateChangedDelegate OnStateChanged;
+        public delegate void OnStateChangedDelegate(string clipName);
+        public event OnStateChangedDelegate OnStateChanged;
 
         private void OnEnable()
         {
-            animatorStateChangedBroadcaster.OnStateChanged += AnimatorStateChangedBroadcaster_OnStateChanged;
+            animatorStateChangedBroadcaster.Value.OnStateChanged += AnimatorStateChangedBroadcaster_OnStateChanged;
         }
 
         private void OnDisable()
         {
-            animatorStateChangedBroadcaster.OnStateChanged -= AnimatorStateChangedBroadcaster_OnStateChanged;
+            animatorStateChangedBroadcaster.Value.OnStateChanged -= AnimatorStateChangedBroadcaster_OnStateChanged;
         }
 
-        private void AnimatorStateChangedBroadcaster_OnStateChanged(string clipName)
+        private void AnimatorStateChangedBroadcaster_OnStateChanged(int animatorStateHash)
         {
+            var clipName = NavigationHashName.Map[animatorStateHash];
             OnStateChanged?.Invoke(clipName);
         }
     }

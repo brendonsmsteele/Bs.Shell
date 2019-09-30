@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8598114342968516516}
   - component: {fileID: 8598114342968516517}
-  - component: {fileID: 8598114342651636443}
   - component: {fileID: 8598114342651636444}
+  - component: {fileID: 1235607733261690632}
   m_Layer: 0
   m_Name: NavigationMapAnimator
   m_TagString: Untagged
@@ -52,18 +52,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &8598114342651636443
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8598114342968516514}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a524bda9f0ffdb43a0637e0cfbae62f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8598114342651636444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76,4 +64,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73785a1420a0b7e44989297aa4bed037, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animatorStateChangedBroadcaster: {fileID: 8598114342651636443}
+  animatorStateChangedBroadcaster: {fileID: 1235607733261690632}
+--- !u!114 &1235607733261690632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8598114342968516514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a524bda9f0ffdb43a0637e0cfbae62f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

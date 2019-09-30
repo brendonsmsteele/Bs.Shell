@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace Bs.Shell.Navigation
 {
@@ -107,13 +108,26 @@ namespace Bs.Shell.Navigation
                 }
                 //4
                 string wwwPlayerFilePath = "file://" + fileInfo.FullName.ToString();
-                WWW www = new WWW(wwwPlayerFilePath);
-                yield return www;
+
+                UnityWebRequest request = new UnityWebRequest(wwwPlayerFilePath);
+                yield return request;
                 //5
-                Object = (Object)www.Current;
+                //Object = (Object)request.Get;
             }
 
         }
+
+        /*
+         * 
+         * var uwr = UnityWebRequestAssetBundle.GetAssetBundle("http://myserver/myBundle.unity3d");
+        yield return uwr.SendWebRequest();
+
+        // Get an asset from the bundle and instantiate it.
+        AssetBundle bundle = DownloadHandlerAssetBundle.GetContent(uwr);
+        var loadAsset = bundle.LoadAssetAsync<GameObject>("Assets/Players/MainPlayer.prefab");
+        yield return loadAsset;
+
+         * */
 
         private NavigationPage CreateNavigationPage(ControllerData[] controllers, string name)
         {
