@@ -3,13 +3,13 @@ using UnityEngine;
 
 namespace Bs.Shell.CodeGeneration
 {
-    [CustomEditor(typeof(GenerateView))]
+    [CustomEditor(typeof(GenerateScriptWithNewNamespace))]
     public class GenerateViewEditor : Editor
     {
         public override void OnInspectorGUI()
         {
             DrawDefaultInspector();
-            GenerateView myTarget = (GenerateView)target;
+            GenerateScriptWithNewNamespace myTarget = (GenerateScriptWithNewNamespace)target;
 
             if (GUILayout.Button("Generate"))
                 myTarget.Generate();

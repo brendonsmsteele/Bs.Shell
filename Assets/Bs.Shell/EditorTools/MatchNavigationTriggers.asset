@@ -9,8 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cd6943b4abc5774e9bc0327cc05bb50, type: 3}
-  m_Name: GenerateView
+  m_Script: {fileID: 11500000, guid: 23b24cf1764e5f342a9e4c34836f809f, type: 3}
+  m_Name: MatchNavigationTriggers
   m_EditorClassIdentifier: 
-  namespace: FooBar
-  exampleView: {fileID: 11500000, guid: 284fa467444b89748baa6720ded8cc28, type: 3}
+  animatorController: {fileID: 9100000, guid: a824b4d38b444a2428bd9fd3ec66ea00, type: 2}

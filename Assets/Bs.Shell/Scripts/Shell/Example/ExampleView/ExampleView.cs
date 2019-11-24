@@ -3,31 +3,31 @@ using UnityEngine;
 
 namespace Bs.Shell.Example
 {
-    [Serializable]
-    public class ExampleViewModel
+    public class ExampleView : View<ExampleView.Model>
     {
-        public string Message;
-
-        public ExampleViewModel(string Message)
+        [Serializable]
+        public class Model
         {
-            this.Message = Message;
+            public string Message;
+
+            public Model(string Message)
+            {
+                this.Message = Message;
+            }
+
+            //public override bool Equals(object obj)
+            //{
+            //    if (obj == null || obj.GetType() != typeof(ExampleViewModel))
+            //        return false;
+
+            //    ExampleViewModel other = (ExampleViewModel)obj;
+            //    return other.Message == this.Message;
+            //}
         }
 
-        //public override bool Equals(object obj)
-        //{
-        //    if (obj == null || obj.GetType() != typeof(ExampleViewModel))
-        //        return false;
-
-        //    ExampleViewModel other = (ExampleViewModel)obj;
-        //    return other.Message == this.Message;
-        //}
-    }
-
-    public class ExampleView : View<ExampleViewModel>
-    {
         public override void Refresh()
         {
-            Debug.Log(ViewModel.Message);
+            Debug.Log(model.Message);
         }
 
         protected override void AddEventListeners()

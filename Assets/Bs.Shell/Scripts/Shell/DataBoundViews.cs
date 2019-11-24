@@ -5,7 +5,7 @@ using UnityEngine;
 
 /// <summary>
 /// DataBoundViews maintains a collection of views based on an input list of view models.
-/// Calling Bind(List<ViewModel> viewModels) will update the view representation 
+/// Calling Bind(List<Model> viewModels) will update the view representation 
 /// If the bound collection contains one or more new view models, they will be created.
 /// If the bound collection does not contain one or more view models currently represented by DataBoundViews, they will be removed.
 /// Any items that exist both in the bound collection and in the DataBoundViews representation will be Refreshed with new view model data

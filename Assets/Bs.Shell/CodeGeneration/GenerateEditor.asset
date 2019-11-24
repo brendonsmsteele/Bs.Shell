@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21201e90fe7403745846a2c1d0df25da, type: 3}
-  m_Name: NavigationHashNameMapBuilder
+  m_Script: {fileID: 11500000, guid: 1cd6943b4abc5774e9bc0327cc05bb50, type: 3}
+  m_Name: GenerateEditor
   m_EditorClassIdentifier: 
-  navigationMapAnimator: {fileID: 8598114342968516514, guid: 2e99676fba5504b4eab3e6d71cd9754f,
-    type: 3}
-  _isPlayingOrWillChangePlaymode: 0
+  namespace: MatchNavigationTriggers
+  exampleView: {fileID: 11500000, guid: 85e5c4c381efc434f836f20e7063d381, type: 3}

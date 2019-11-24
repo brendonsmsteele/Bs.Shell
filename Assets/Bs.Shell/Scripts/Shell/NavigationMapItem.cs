@@ -30,8 +30,8 @@ namespace Bs.Shell.Navigation
 
         public override void Refresh()
         {
-            //Debug.Log(ViewModel.Message);
-            text.text = ViewModel.Message;
+            //Debug.Log(Model.Message);
+            text.text = model.Message;
         }
 
         protected override void AddEventListeners()
@@ -46,7 +46,7 @@ namespace Bs.Shell.Navigation
 
         private void HandleButtonClick()
         {
-            OnMessage?.Invoke(ViewModel.Message);
+            OnMessage?.Invoke(model.Message);
         }
 
     }

@@ -5,48 +5,20 @@ using UnityEngine;
 
 namespace Bs.Shell.Navigation
 {
-    [CreateAssetMenu(fileName =nameof(NavigationMap), menuName ="Bs.Shell/Navigation/" + nameof(NavigationMap))]
-    public class NavigationMap : ScriptableObject
+    [CreateAssetMenu(fileName =nameof(NavigationController), menuName = "Bs.Shell.Navigation/" + nameof(NavigationController))]
+    public class NavigationController : Service
     {
-        [SerializeField] NavigationPageLoader navigationPageLoader;
-
-        NavigationMapTree _navigationMapTree;
-        public NavigationMapTree NavigationMapTree
+        [SerializeField] Animator mapPrefab;
+        Animator _map;
+        Animator map
         {
             get
             {
-                if(_navigationMapTree == null)
-                {
-                    var clone = Instantiate(Resources.Load("NavigationMapAnimator")) as GameObject;
-                    //DontDestroyOnLoad(clone);
-                    _navigationMapTree = clone.GetComponent<NavigationMapTree>();
-                    _navigationMapTree.OnStateChanged += _navigationMapTree_OnStateChanged;
-                }
-                return _navigationMapTree;
+                if (_map == null)
+                    _map = Instantiate(mapPrefab).GetComponent<Animator>();
+                return _map;
             }
         }
-
-        private void _navigationMapTree_OnStateChanged(string clipName)
-        {
-            NavigateToPage(clipName);
-        }
-
-        //  Consider making this more generic.  
-        //[SerializeField] NavigationMapView navigationMapViewReference;
-        //NavigationMapView _navigationMapView;
-        //NavigationMapView navigationMapView
-        //{
-        //    get
-        //    {
-        //        if (_navigationMapView == null)
-        //        {
-        //            var clone = Instantiate(navigationMapView.gameObject);
-        //            DontDestroyOnLoad(clone);
-        //            _navigationMapView = clone.GetComponent<NavigationMapView>();
-        //        }
-        //        return _navigationMapView;
-        //    }
-        //}
 
         DiffableDictionary<ControllerData, ControllerToken> _activeControllers;
         DiffableDictionary<ControllerData, ControllerToken> ActiveControllers
@@ -113,46 +85,6 @@ namespace Bs.Shell.Navigation
         }
         #endregion
 
-        #region NavPanel
-        bool _showNavPanel = false;
-        public bool ShowNavPanel
-        {
-            get
-            {
-                return _showNavPanel;
-            }
-            set
-            {
-                if (_showNavPanel != value)
-                {
-                    _showNavPanel = value;
-                    //navigationMapView.Bind(new NavigationMapViewModel(GetTriggers(), _showNavPanel));
-                }
-            }
-        }
-        #endregion
-
-        public void Init()
-        {
-            //navigationMapView.Bind(new NavigationMapViewModel(GetTriggers(), false));
-            //navigationMapView.OnMessage += NavigationMapView_OnMessage;
-            navigationPageLoader.Init();
-        }
-
-        public void OnDisable()
-        {
-            if (Application.isPlaying)
-            {
-                Dispose();
-            }
-        }
-
-        void Dispose()
-        {
-            Destroy(NavigationMapTree.gameObject);
-            //Destroy(navigationMapView.gameObject);
-        }
-
 
         /// <summary>
         /// Called by the animator, binds appropriate data.
@@ -164,19 +96,13 @@ namespace Bs.Shell.Navigation
             ActiveControllers.Update(navigationPage.ActiveControllers);
         }
 
-        public void NavigateToPage(string pageName)
-        {
-            navigationPageLoader.GetPage(pageName);
-        }
-
         /// <summary>
         /// Navigate by setting trigger.
         /// </summary>
         /// <param name="destination"></param>
         public void Navigate(string destination)
         {
-            Debug.Log("Navigate to " + destination);
-            NavigationMapTree.Animator.SetTrigger(destination);
+            map.SetTrigger(destination);
             _lastNavigatedTrigger = destination;
         }
 
@@ -197,14 +123,6 @@ namespace Bs.Shell.Navigation
             return page;
         }
 
-        List<string> GetTriggers()
-        {
-            var triggers = new List<string>();
-            NavigationMapTree.Animator.GetTriggers(triggers);
-            return triggers;
-        }
-
-
         #region BindDataToController
 
         private void BindDataToController(ControllerData controllerData, ControllerToken controllerToken)
@@ -222,13 +140,10 @@ namespace Bs.Shell.Navigation
             return LoadSceneFactory.LoadScene(controllerData);
         }
 
-        #endregion
-
-
-        private void NavigationMapView_OnMessage(string message)
+        public override void Init()
         {
-            Navigate(message);
         }
 
+        #endregion
     }
 }

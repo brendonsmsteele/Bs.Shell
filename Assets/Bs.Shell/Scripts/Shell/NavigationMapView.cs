@@ -34,11 +34,11 @@ namespace Bs.Shell.Navigation
 
         public override void Refresh()
         {
-            var data = ViewModel.Triggers.Select(x => { return new NavigationMapItemViewModel(x); }).ToList();
+            var data = model.Triggers.Select(x => { return new NavigationMapItemViewModel(x); }).ToList();
             navigationMapDBV.Bind(data);
-            canvasGroup.alpha = ViewModel.Show ? 1f : 0f;
-            canvasGroup.interactable = ViewModel.Show;
-            canvasGroup.blocksRaycasts = ViewModel.Show;
+            canvasGroup.alpha = model.Show ? 1f : 0f;
+            canvasGroup.interactable = model.Show;
+            canvasGroup.blocksRaycasts = model.Show;
         }
 
         protected override void AddEventListeners()

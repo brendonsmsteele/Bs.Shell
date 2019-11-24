@@ -25,7 +25,7 @@ namespace Bs.Shell.Example
     {
         public override void Refresh()
         {
-            Debug.Log(ViewModel.Message);
+            Debug.Log(model.Message);
         }
 
         protected override void AddEventListeners()
