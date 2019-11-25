@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cd6943b4abc5774e9bc0327cc05bb50, type: 3}
   m_Name: GenerateEditor
   m_EditorClassIdentifier: 
-  namespace: MatchNavigationTriggers
+  namespace: NavigationPage
   exampleView: {fileID: 11500000, guid: 85e5c4c381efc434f836f20e7063d381, type: 3}

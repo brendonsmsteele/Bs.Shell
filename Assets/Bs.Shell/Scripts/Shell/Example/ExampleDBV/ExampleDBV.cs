@@ -1,6 +1,6 @@
 ﻿namespace Bs.Shell.Example
 {
-    public class ExampleDBV : DataBoundViews<ExampleItemViewModel>
+    public class ExampleDBV : DataBoundViews<ExampleItem.Model>
     {
     }
 }

@@ -12,10 +12,10 @@ using UnityEngine;
 /// </summary>
 namespace Bs.Shell
 {
-    public class DataBoundViews<TViewModel> : MonoBehaviour
-    where TViewModel : class
+    public class DataBoundViews<TModel> : MonoBehaviour
+    where TModel : Model
     {
-        public delegate void ViewEvent(TViewModel viewModel, View<TViewModel> view, int siblingIndex);
+        public delegate void ViewEvent(TModel viewModel, View<TModel> view, int siblingIndex);
         public ViewEvent OnViewAdded;
         public ViewEvent OnViewUpdated;
         public ViewEvent OnViewRemoved;
@@ -26,14 +26,14 @@ namespace Bs.Shell
         /// <summary>
         /// Encapsulates add, remove, and update and the functions that get called.
         /// </summary>
-        DiffableDictionary<TViewModel, View<TViewModel>> _viewDictionary;
-        protected DiffableDictionary<TViewModel, View<TViewModel>> ViewDictionary
+        DiffableDictionary<TModel, View<TModel>> _viewDictionary;
+        protected DiffableDictionary<TModel, View<TModel>> ViewDictionary
         {
             get
             {
                 if (_viewDictionary == null)
                 {
-                    _viewDictionary = new DiffableDictionary<TViewModel, View<TViewModel>>(
+                    _viewDictionary = new DiffableDictionary<TModel, View<TModel>>(
                         AddView,
                         UpdateView,
                         RemoveView,
@@ -46,27 +46,27 @@ namespace Bs.Shell
             private set { _viewDictionary = value; }
         }
 
-        protected virtual View<TViewModel> AddView(TViewModel viewModel)
+        protected virtual View<TModel> AddView(TModel model)
         {
             GameObject instantiatedObject = Instantiate(prefab) as GameObject;
             instantiatedObject.transform.SetParent(this.transform);
             instantiatedObject.transform.localPosition = Vector3.zero;
             instantiatedObject.transform.localEulerAngles = Vector3.zero;
             instantiatedObject.transform.localScale = Vector3.one;
-            View<TViewModel> view = instantiatedObject.GetComponent<View<TViewModel>>();
-            OnViewAdded?.Invoke(viewModel, view, view.transform.GetSiblingIndex());
+            View<TModel> view = instantiatedObject.GetComponent<View<TModel>>();
+            OnViewAdded?.Invoke(model, view, view.transform.GetSiblingIndex());
             OneOrMoreAdded = true;
             return view;
         }
 
-        protected virtual void UpdateView(TViewModel viewModel, View<TViewModel> view, int siblingIndex)
+        protected virtual void UpdateView(TModel viewModel, View<TModel> view, int siblingIndex)
         {
             view.Bind(viewModel);
             view.transform.SetSiblingIndex(siblingIndex);
             OnViewUpdated?.Invoke(viewModel, view, siblingIndex);
         }
 
-        protected virtual void RemoveView(TViewModel viewModel, View<TViewModel> view)
+        protected virtual void RemoveView(TModel viewModel, View<TModel> view)
         {
             // do before destroying to give the listener access to the view
             OnViewRemoved?.Invoke(viewModel, view, view.transform.GetSiblingIndex());
@@ -127,7 +127,7 @@ namespace Bs.Shell
         /// Update your components with changed data.
         /// </summary>
         /// <param name="viewModels"></param>
-        public void Bind(List<TViewModel> viewModels)
+        public void Bind(List<TModel> viewModels)
         {
             ViewDictionary.Update(viewModels);
         }
@@ -144,7 +144,7 @@ namespace Bs.Shell
         /// Get all data.
         /// </summary>
         /// <returns></returns>
-        public TViewModel[] GetKeys()
+        public TModel[] GetKeys()
         {
             return ViewDictionary.GetKeys();
         }
@@ -153,7 +153,7 @@ namespace Bs.Shell
         /// Get all components.
         /// </summary>
         /// <returns></returns>
-        public View<TViewModel>[] GetValues()
+        public View<TModel>[] GetValues()
         {
             return ViewDictionary.GetValues();
         }
@@ -163,7 +163,7 @@ namespace Bs.Shell
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        public View<TViewModel> GetValue(int index)
+        public View<TModel> GetValue(int index)
         {
             return ViewDictionary.GetValue(index);
         }
@@ -173,7 +173,7 @@ namespace Bs.Shell
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public View<TViewModel> GetValue(TViewModel key)
+        public View<TModel> GetValue(TModel key)
         {
             return ViewDictionary.GetValue(key);
         }
@@ -187,7 +187,7 @@ namespace Bs.Shell
             return ViewDictionary.Count();
         }
 
-        public int GetIndexOfView(View<TViewModel> view)
+        public int GetIndexOfView(View<TModel> view)
         {
             int i = 0;
             foreach (var v in ViewDictionary.GetValues())

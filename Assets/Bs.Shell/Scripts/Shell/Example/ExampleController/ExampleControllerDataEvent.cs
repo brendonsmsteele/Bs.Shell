@@ -1,8 +1,4 @@
-﻿using Bs.Shell.EditorVariables;
-using UnityEngine;
-
-namespace Bs.Shell.Example
+﻿namespace Bs.Shell.Controllers
 {
-    [CreateAssetMenu(fileName = nameof(ExampleControllerDataEvent), menuName = "Bs.Shell/Controllers/" + nameof(ExampleControllerDataEvent))]
-    public class ExampleControllerDataEvent : ControllerDataEvent<ExampleControllerData>, IControllerDataEvent { }
+    public class ExampleControllerDataEvent : ControllerDataEvent<ExampleController.Model>, IControllerDataEvent { }
 }

@@ -8,22 +8,22 @@ namespace Bs.Shell
         public Action LoadSceneComplete;
     }
 
-    public class LoadScene<TData, TController> : LoadSceneBase
-        where TData : ControllerData
-        where TController : ControllerBase<TData>
+    public class LoadScene<TModel, TController> : LoadSceneBase
+        where TModel : Model
+        where TController : ControllerBase<TModel>
     {
-        public WaitForControllerTokenYieldInstruction<TData, ControllerBase<TData>> waitForToken;
+        public WaitForControllerTokenYieldInstruction<TModel, ControllerBase<TModel>> waitForToken;
 
-        public LoadScene(TData data)
+        public LoadScene(TModel data)
         {
             LoadSceneWatchdog.Start(LoadSceneRoutine(data));
         }
 
         private CoroutineWatchdog LoadSceneWatchdog = new CoroutineWatchdog();
-        private IEnumerator LoadSceneRoutine(TData data)
+        private IEnumerator LoadSceneRoutine(TModel data)
         {
             //  Return a token that is ready when the scene is finished loading!
-            waitForToken = Bs.Shell.App.Instance.LoadControllerAsync<TData, TController>(null);
+            waitForToken = Bs.Shell.App.Instance.LoadControllerAsync<TModel, TController>(null);
             yield return waitForToken;
             //  Call bind on the token!
             waitForToken.controllerToken.controllerDataEvent.Raise(data);

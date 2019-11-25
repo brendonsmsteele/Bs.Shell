@@ -1,28 +1,16 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Bs.Shell.Example
+namespace Bs.Shell.Views
 {
     public class ExampleView : View<ExampleView.Model>
     {
         [Serializable]
-        public class Model
+        public class Model : Shell.Model
         {
-            public string Message;
-
-            public Model(string Message)
+            public Model()
             {
-                this.Message = Message;
             }
-
-            //public override bool Equals(object obj)
-            //{
-            //    if (obj == null || obj.GetType() != typeof(ExampleViewModel))
-            //        return false;
-
-            //    ExampleViewModel other = (ExampleViewModel)obj;
-            //    return other.Message == this.Message;
-            //}
         }
 
         public override void Refresh()

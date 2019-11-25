@@ -1,17 +1,17 @@
 ﻿namespace Bs.Shell.Navigation
 {
-    public class NavigationMapDBV : DataBoundViews<NavigationMapItemViewModel>
+    public class NavigationMapDBV : DataBoundViews<NavigationMapItem.Model>
     {
         public event DelegateMessage OnMessage;
 
-        protected override View<NavigationMapItemViewModel> AddView(NavigationMapItemViewModel viewModel)
+        protected override View<NavigationMapItem.Model> AddView(NavigationMapItem.Model model)
         {
-            var super = (NavigationMapItem)base.AddView(viewModel);
+            var super = (NavigationMapItem)base.AddView(model);
             super.OnMessage += View_OnMessage;
             return super;
         }
 
-        protected override void RemoveView(NavigationMapItemViewModel viewModel, View<NavigationMapItemViewModel> view)
+        protected override void RemoveView(NavigationMapItem.Model viewModel, View<NavigationMapItem.Model> view)
         {
             var super = (NavigationMapItem)base.AddView(viewModel);
             super.OnMessage -= View_OnMessage;

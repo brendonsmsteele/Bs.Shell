@@ -1,14 +1,23 @@
+using System;
 using UnityEngine;
 
-namespace Bs.Shell.BG
+namespace Bs.Shell.Controllers
 {
-    public class BGController : ControllerBase<BGControllerData>
+    public class BGController : ControllerBase<BGController.Model>
     {
-        [SerializeField]
-        private ShellServices services;
-
-        public override void Bind(BGControllerData data)
+        [Serializable]
+        public class Model : Shell.Model
         {
+            public string PathToBg;
+            public Model(string PathToBg)
+            {
+                this.PathToBg = PathToBg;
+            }
+        }
+
+        public override void Refresh()
+        {
+            Debug.Log(model.Message);
         }
 
         public override ManualYieldInstruction Dispose()

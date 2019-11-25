@@ -1,14 +1,21 @@
+using System;
 using UnityEngine;
 
-namespace Bs.Shell.MainMenu
+namespace Bs.Shell.Controllers
 {
-    public class MainMenuController : ControllerBase<MainMenuControllerData>
+    public class MainMenuController : ControllerBase<MainMenuController.Model>
     {
-        [SerializeField]
-        private ShellServices services;
-
-        public override void Bind(MainMenuControllerData data)
+        [Serializable]
+        public class Model : Shell.Model
         {
+            public Model()
+            {
+            }
+        }
+
+        public override void Refresh()
+        {
+            Debug.Log(model.Message);
         }
 
         public override ManualYieldInstruction Dispose()

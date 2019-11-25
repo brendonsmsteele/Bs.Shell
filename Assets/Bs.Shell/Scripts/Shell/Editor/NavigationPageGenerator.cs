@@ -8,6 +8,9 @@ using UnityEngine.Networking;
 
 namespace Bs.Shell.Navigation
 {
+    /// <summary>
+    /// DEPRECATED
+    /// </summary>
     [CreateAssetMenu(fileName =nameof(NavigationPageGenerator), menuName = "Bs.Shell/Navigation/"+ nameof(NavigationPageGenerator))]
     public class NavigationPageGenerator : ScriptableObject
     {
@@ -37,7 +40,7 @@ namespace Bs.Shell.Navigation
                 var waitForObjects = new GetAllObjectsFromFolderAsync(directory);
                 yield return waitForObjects;
                 var objects = waitForObjects.Objects;
-                var controllers = objects.Cast<ControllerData>().ToArray();
+                var controllers = objects.Cast<Model>().ToArray();
                 var name = directory.Split('\\').LastOrDefault();
                 var navPage = CreateNavigationPage(controllers, name);
                 CreateNavigationPageAsset(navPage);
@@ -129,9 +132,9 @@ namespace Bs.Shell.Navigation
 
          * */
 
-        private NavigationPage CreateNavigationPage(ControllerData[] controllers, string name)
+        private NavigationPage CreateNavigationPage(Model[] models, string name)
         {
-            var navPage = NavigationPage.Create(controllers);
+            var navPage = NavigationPage.Create(models);
             navPage.name = name;
             return navPage;
         }

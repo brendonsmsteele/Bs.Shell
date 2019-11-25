@@ -1,14 +1,13 @@
-﻿using Bs.Shell.EditorVariables;
-using System;
+﻿using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Bs.Shell
 {
-    public class ControllerToken<TData> : ControllerToken
-        where TData : ControllerData
+    public class ControllerToken<TModel> : ControllerToken
+        where TModel : Model
     {
-        public ControllerDataEvent<TData> controllerDataEvent;
+        public ControllerDataEvent<TModel> controllerDataEvent;
 
         public ControllerToken(Guid guid)
         {
@@ -23,19 +22,19 @@ namespace Bs.Shell
         /// <summary>
         /// Only use this if you know data is of type TData.
         /// </summary>
-        /// <param name="data"></param>
-        public override void Raise(ControllerData data)
+        /// <param name="model"></param>
+        public override void Raise(Model model)
         {
-            if (data is TData)
+            if (model is TModel)
             {
-                var tData = (TData)data;
+                var tData = (TModel)model;
                 Raise(tData);
             }
             else
-                Debug.LogError("Data is not of correct type -> " + nameof(TData) );
+                Debug.LogError("Data is not of correct type -> " + nameof(TModel) );
         }
 
-        public void Raise(TData tdata)
+        public void Raise(TModel tdata)
         {
             if (!IsLoaded())
                 return;
@@ -60,6 +59,6 @@ namespace Bs.Shell
             return IsLoaded() && !preloadingSceneAssets;
         }
 
-        public abstract void Raise(ControllerData data);
+        public abstract void Raise(Model model);
     }
 }

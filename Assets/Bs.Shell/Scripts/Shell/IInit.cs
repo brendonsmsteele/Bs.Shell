@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public interface IInit
+﻿namespace Bs.Shell
 {
-    void Init();
+    public interface IInit
+    {
+        void Init();
+    }
 }

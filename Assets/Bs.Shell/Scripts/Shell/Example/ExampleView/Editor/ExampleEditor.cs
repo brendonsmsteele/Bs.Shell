@@ -1,6 +1,6 @@
 ﻿using UnityEditor;
 
-namespace Bs.Shell.Example
+namespace Bs.Shell.Views
 {
     [CustomEditor(typeof(ExampleView))]
     public class ExampleEditor : Editor

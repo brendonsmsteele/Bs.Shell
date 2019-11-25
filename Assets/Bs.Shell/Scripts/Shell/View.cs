@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Bs.Shell
 {
@@ -15,27 +16,21 @@ namespace Bs.Shell
         void MakeDirty();
     }
 
+    public interface IBindable<TModel>
+        where TModel : Model
+    {
+        void Bind(TModel model);
+    }
+
     /// <summary>
     /// A generic view which represents data in the form of TViewModel.
     /// You can create an individual view and call Bind(TViewModel viewModel), which will kickoff the Refresh() method,
     /// Or you can create a DataBoundViews<TViewModel>, which will cleanly maintain collections of views
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
-    public abstract class View<TModel> : RefreshableObject
-        where TModel : class
+    public abstract class View<TModel> : RefreshableObject, IBindable<TModel>
+        where TModel : Model
     {
-        RectTransform root { get { return (RectTransform)this.transform; } }
-        CanvasScaler _canvasScaler;
-        CanvasScaler canvasScaler
-        {
-            get
-            {
-                if (_canvasScaler == null)
-                    _canvasScaler = GetComponentInParent<CanvasScaler>();
-                return _canvasScaler;
-            }
-        }
-
         [SerializeField]
         private TModel _model;
 
@@ -50,14 +45,10 @@ namespace Bs.Shell
         /// <summary>
         /// Binds the view to a new model, and kicks off the Refresh() method if it is new
         /// </summary>
-        /// <param name="viewModel">Model representing the data the view should reflect</param>
-        public void Bind(TModel viewModel)
+        /// <param name="model">Model representing the data the view should reflect</param>
+        public void Bind(TModel model)
         { 
-            if (_model != viewModel)
-            {
-                _model = viewModel;
-            }
-
+            _model = model;
             Refresh();
         }
 
@@ -93,18 +84,29 @@ namespace Bs.Shell
             //Debug.LogWarning("Dispose NotImplemented on View");
         }
 
-        /// <summary>
-        /// To use this correctly your UI element needs to be anchored to the bottom-left corner of the screen.
-        /// bottom-left is 0,0  top-right is 1,1
-        /// </summary>
-        /// <param name="normalizedScreenPos"></param>
-        protected void MoveAnchoredPositionToViewPortPosition(Vector2 normalizedScreenPos)
+        private void InvokeNewAsyncBind()
         {
-            //  TODO:  Consider using Screen.Width Screen.Height, if CanvasScalar is not always present.
-            root.anchoredPosition = new Vector2(canvasScaler.referenceResolution.x * normalizedScreenPos.x,
-                                                canvasScaler.referenceResolution.y * normalizedScreenPos.y);
+            CancelAsyncRefresh();
+            InvokeAsyncRefresh();
         }
 
-    }
+        #region AsyncRefresh
 
+        CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+
+        protected virtual async Task AsyncRefresh(CancellationToken cancellationToken) { }
+
+        private void CancelAsyncRefresh()
+        {
+            cancellationTokenSource.Cancel();
+            cancellationTokenSource = new CancellationTokenSource();
+        }
+
+        private void InvokeAsyncRefresh()
+        {
+            this.AsyncRefresh(cancellationTokenSource.Token);
+        }
+
+        #endregion
+    }
 }

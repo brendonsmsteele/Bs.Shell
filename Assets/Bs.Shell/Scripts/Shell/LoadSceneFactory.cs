@@ -1,16 +1,16 @@
-﻿using Bs.Shell.Example;
+﻿using Bs.Shell.Controllers;
 using UnityEngine;
 
 namespace Bs.Shell
 {
     public static class LoadSceneFactory
     {
-        public static ControllerToken LoadScene(ControllerData data)
+        public static ControllerToken LoadScene(Model model)
         {
-            if (data is ExampleControllerData)
-                return new LoadScene<ExampleControllerData, ExampleController>((ExampleControllerData)data).waitForToken.controllerToken;
+            if (model is ExampleController.Model)
+                return new LoadScene<ExampleController.Model, ExampleController>((ExampleController.Model)model).waitForToken.controllerToken;
 
-            Debug.LogError("LoadScene not yet supported for -> " + data.ToString());
+            Debug.LogError("LoadScene not yet supported for -> " + model.ToString());
             return null;
         }
     }

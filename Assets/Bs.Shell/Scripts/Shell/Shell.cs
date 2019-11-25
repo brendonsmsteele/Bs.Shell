@@ -1,5 +1,4 @@
-﻿using Bs.Shell.EditorVariables;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 namespace Bs.Shell
 {
-    [CreateAssetMenu(fileName = nameof(App), menuName = "Bs.Shell/App/" + nameof(App))]
+    [CreateAssetMenu(fileName = nameof(App), menuName = Shell.Menu.Paths.APP + nameof(App))]
     public class App : ScriptableObject
     {
         static App _instance;
@@ -36,23 +35,23 @@ namespace Bs.Shell
         /// Dictate the type of UI to look for when scene is loaded.
         /// Pass in the UIDataEvent, you create and manage your own UIDataEvent.
         /// All UIs only add to the scene.
-        public WaitForControllerTokenYieldInstruction<TData, ControllerBase<TData>> LoadControllerAsync<TData, TController>(ControllerDataEvent<TData> controllerDataEvent, Transform parent = null, LoadSceneMode loadSceneMode = LoadSceneMode.Additive)
-            where TData : ControllerData
-            where TController : ControllerBase<TData>
+        public WaitForControllerTokenYieldInstruction<TModel, ControllerBase<TModel>> LoadControllerAsync<TModel, TController>(ControllerDataEvent<TModel> controllerDataEvent, Transform parent = null, LoadSceneMode loadSceneMode = LoadSceneMode.Additive)
+            where TModel : Model
+            where TController : ControllerBase<TModel>
         {
             var type = typeof(TController);
             string path = type.Name;
-            WaitForControllerTokenYieldInstruction<TData, ControllerBase<TData>> waitForUIToken = new WaitForControllerTokenYieldInstruction<TData, ControllerBase<TData>>();
-            waitForUIToken.controllerToken = new ControllerToken<TData>(Guid.NewGuid());
+            WaitForControllerTokenYieldInstruction<TModel, ControllerBase<TModel>> waitForUIToken = new WaitForControllerTokenYieldInstruction<TModel, ControllerBase<TModel>>();
+            waitForUIToken.controllerToken = new ControllerToken<TModel>(Guid.NewGuid());
             scene = null;
             AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(path, loadSceneMode);
-            RunCoroutine.Instance.StartCoroutine(LoadController<TData, TController>(asyncOperation, waitForUIToken, path, controllerDataEvent, parent));
+            RunCoroutine.Instance.StartCoroutine(LoadController<TModel, TController>(asyncOperation, waitForUIToken, path, controllerDataEvent, parent));
             return waitForUIToken; 
         }
 
-        IEnumerator LoadController<TData, TController>(AsyncOperation asyncOperation, WaitForControllerTokenYieldInstruction<TData, ControllerBase<TData>> waitForControllerToken, string path, ControllerDataEvent<TData> controllerDataEvent, Transform parent = null)
-            where TData : ControllerData
-            where TController : ControllerBase<TData>
+        IEnumerator LoadController<TModel, TController>(AsyncOperation asyncOperation, WaitForControllerTokenYieldInstruction<TModel, ControllerBase<TModel>> waitForControllerToken, string path, ControllerDataEvent<TModel> controllerDataEvent, Transform parent = null)
+            where TModel : Model
+            where TController : ControllerBase<TModel>
         {
             yield return asyncOperation;
             Debug.Log("Scene Loaded");
@@ -91,9 +90,9 @@ namespace Bs.Shell
             }
         }
 
-        public TController GetController<TData, TController>(ControllerToken controllerToken)
-            where TData : ControllerData
-            where TController : ControllerBase<TData>
+        public TController GetController<TModel, TController>(ControllerToken controllerToken)
+            where TModel : Model
+            where TController : ControllerBase<TModel>
         {
             if (!controllerToken.IsLoaded())
             {

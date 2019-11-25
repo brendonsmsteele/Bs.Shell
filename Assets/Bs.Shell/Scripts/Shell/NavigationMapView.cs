@@ -4,29 +4,29 @@ using UnityEngine;
 
 namespace Bs.Shell.Navigation
 {
-    public class NavigationMapViewModel
+    public class NavigationMapView : View<NavigationMapView.Model>
     {
-        public List<string> Triggers;
-        public bool Show;
-
-        public NavigationMapViewModel(List<string> Triggers, bool Show)
+        public class Model : Shell.Model
         {
-            this.Triggers = Triggers;
-            this.Show = Show;
+            public List<string> Triggers;
+            public bool Show;
+
+            public Model(List<string> Triggers, bool Show)
+            {
+                this.Triggers = Triggers;
+                this.Show = Show;
+            }
+
+            //public override bool Equals(object obj)
+            //{
+            //    if (obj == null || obj.GetType() != typeof(NavigationMapViewModel))
+            //        return false;
+
+            //    NavigationMapViewModel other = (NavigationMapViewModel)obj;
+            //    return other.Message == this.Message;
+            //}
         }
 
-        //public override bool Equals(object obj)
-        //{
-        //    if (obj == null || obj.GetType() != typeof(NavigationMapViewModel))
-        //        return false;
-
-        //    NavigationMapViewModel other = (NavigationMapViewModel)obj;
-        //    return other.Message == this.Message;
-        //}
-    }
-
-    public class NavigationMapView : View<NavigationMapViewModel>
-    {
         [SerializeField] NavigationMapDBV navigationMapDBV;
         [SerializeField] CanvasGroup canvasGroup;
 
@@ -34,7 +34,7 @@ namespace Bs.Shell.Navigation
 
         public override void Refresh()
         {
-            var data = model.Triggers.Select(x => { return new NavigationMapItemViewModel(x); }).ToList();
+            var data = model.Triggers.Select(x => { return new NavigationMapItem.Model(x); }).ToList();
             navigationMapDBV.Bind(data);
             canvasGroup.alpha = model.Show ? 1f : 0f;
             canvasGroup.interactable = model.Show;

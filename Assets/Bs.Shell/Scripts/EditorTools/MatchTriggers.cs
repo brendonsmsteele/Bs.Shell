@@ -5,8 +5,10 @@ using UnityEngine;
 
 namespace Bs.Shell
 {
-    public abstract class MatchTriggers<TEnum> : ScriptableObject, IMatchTriggers
+    [CreateAssetMenu(menuName = "Bs.Shell/" + nameof(MatchTriggers), fileName = nameof(MatchTriggers))]
+    public class MatchTriggers : ScriptableObject, IMatchTriggers
     {
+        [SerializeField] GetTriggers getTriggers;
         [SerializeField] AnimatorController animatorController;
 
         bool _match;
@@ -19,7 +21,7 @@ namespace Bs.Shell
 
         public bool TriggersMatch()
         {
-            var names = Enum.GetNames(typeof(TEnum));
+            var names = getTriggers.Triggers();
             var parameters = animatorController.parameters;
             var parameterNames = parameters.Select(x => x.name).ToArray();
             _match = names.SequenceEqual(parameterNames);
@@ -28,7 +30,7 @@ namespace Bs.Shell
 
         public void SetTriggers()
         {
-            var names = Enum.GetNames(typeof(TEnum));
+            var names = getTriggers.Triggers();
             var parameters = CreateParameters(names);
             animatorController.parameters = parameters;
             _match = true;

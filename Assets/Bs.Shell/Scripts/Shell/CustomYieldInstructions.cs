@@ -26,11 +26,11 @@ namespace Bs.Shell
         }
     }
 
-    public class WaitForControllerTokenYieldInstruction<TData, TUI> : CustomYieldInstruction
-        where TData : ControllerData
-        where TUI : ControllerBase<TData>
+    public class WaitForControllerTokenYieldInstruction<TModel, TController> : CustomYieldInstruction
+        where TModel : Model
+        where TController : ControllerBase<TModel>
     {
-        public ControllerToken<TData> controllerToken;
+        public ControllerToken<TModel> controllerToken;
 
         public override bool keepWaiting
         {

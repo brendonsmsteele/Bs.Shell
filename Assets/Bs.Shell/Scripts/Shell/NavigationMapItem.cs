@@ -4,26 +4,28 @@ using UnityEngine.UI;
 namespace Bs.Shell.Navigation
 {
     public delegate void DelegateMessage(string message);
-    public class NavigationMapItemViewModel
+    
+    public class NavigationMapItem : View<NavigationMapItem.Model>
     {
-        public string Message; 
-
-        public NavigationMapItemViewModel(string message)
+        public class Model : Shell.Model
         {
-            this.Message = message;
+            public string Message;
+
+            public Model(string message)
+            {
+                this.Message = message;
+            }
+
+            public override bool Equals(object obj)
+            {
+                if (obj == null || obj.GetType() != typeof(Model))
+                    return false;
+
+                Model other = (Model)obj;
+                return other.Message == this.Message;
+            }
         }
 
-        public override bool Equals(object obj)
-        {
-            if (obj == null || obj.GetType() != typeof(NavigationMapItemViewModel))
-                return false;
-
-            NavigationMapItemViewModel other = (NavigationMapItemViewModel)obj;
-            return other.Message == this.Message;
-        }
-    }
-    public class NavigationMapItem : View<NavigationMapItemViewModel>
-    {
         [SerializeField] Text text;
         [SerializeField] Button button;
         public event DelegateMessage OnMessage;
