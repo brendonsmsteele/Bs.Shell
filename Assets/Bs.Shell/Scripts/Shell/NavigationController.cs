@@ -96,6 +96,11 @@ namespace Bs.Shell.Navigation
             ActiveControllers.Update(navigationPage.ActiveControllers);
         }
 
+        public void NavigateToPage(List<Model> models)
+        {
+            ActiveControllers.Update(models);
+        }
+
         /// <summary>
         /// Navigate by setting trigger.
         /// </summary>
@@ -128,7 +133,7 @@ namespace Bs.Shell.Navigation
         private void BindDataToController(Model model, SceneControllerToken controllerToken)
         {
             //  Need to bind this thing with data.
-            controllerToken.
+            SceneControllerFactory.SetModel(model, controllerToken);
         }
         
         #endregion
@@ -138,7 +143,7 @@ namespace Bs.Shell.Navigation
 
         private SceneControllerToken LoadController(Model model)
         {
-            return LoadSceneFactory.LoadScene(model);
+            return SceneControllerFactory.LoadScene(model);
         }
 
         public override void Init()

@@ -35,23 +35,20 @@ namespace Bs.Shell
         /// Dictate the type of UI to look for when scene is loaded.
         /// Pass in the UIDataEvent, you create and manage your own UIDataEvent.
         /// All UIs only add to the scene.
-        public WaitForControllerTokenYieldInstruction<TModel, SceneController<TModel>> LoadControllerAsync<TModel, TController>(Transform parent = null, LoadSceneMode loadSceneMode = LoadSceneMode.Additive)
+        public WaitForControllerTokenYieldInstruction<TModel> LoadControllerAsync<TModel>(Transform parent = null, LoadSceneMode loadSceneMode = LoadSceneMode.Additive)
             where TModel : Model
-            where TController : SceneController<TModel>
         {
-            var type = typeof(TController);
-            string path = type.Name;
-            WaitForControllerTokenYieldInstruction<TModel, SceneController<TModel>> waitForUIToken = new WaitForControllerTokenYieldInstruction<TModel, SceneController<TModel>>();
+            var controllerName = GetControllerName<TModel>();
+            WaitForControllerTokenYieldInstruction<TModel> waitForUIToken = new WaitForControllerTokenYieldInstruction<TModel>();
             waitForUIToken.controllerToken = new SceneControllerToken<TModel>(Guid.NewGuid());
             scene = null;
-            AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(path, loadSceneMode);
-            RunCoroutine.Instance.StartCoroutine(LoadController<TModel, TController>(asyncOperation, waitForUIToken, path, parent));
+            AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(controllerName, loadSceneMode);
+            RunCoroutine.Instance.StartCoroutine(LoadController<TModel>(asyncOperation, waitForUIToken, controllerName, parent));
             return waitForUIToken; 
         }
 
-        IEnumerator LoadController<TModel, TController>(AsyncOperation asyncOperation, WaitForControllerTokenYieldInstruction<TModel, SceneController<TModel>> waitForControllerToken, string path, Transform parent = null)
+        IEnumerator LoadController<TModel>(AsyncOperation asyncOperation, WaitForControllerTokenYieldInstruction<TModel> waitForControllerToken, string path, Transform parent = null)
             where TModel : Model
-            where TController : SceneController<TModel>
         {
             yield return asyncOperation;
             Debug.Log("Scene Loaded");
@@ -59,7 +56,7 @@ namespace Bs.Shell
             if (scene.Value.rootCount == 1)
             {
                 GameObject root = scene.Value.GetRootGameObjects()[0];
-                TController controller = root.GetComponent<TController>();
+                SceneController<TModel> controller = root.GetComponent<SceneController<TModel>>();
                 if (controller != null)
                 {
                     loadedUIs.Add(waitForControllerToken.controllerToken.guid, controller);
@@ -68,13 +65,13 @@ namespace Bs.Shell
                 }
                 else
                 {
-                    Debug.LogError("Exception, SceneController non existent on root go of scene. ~ " + path);
+                    throw new Exception("Exception, SceneController non existent on root go of scene. ~ " + path);
                 }
             }
             else
             {
-                Debug.LogError("Exception you are trying to load a UI, UI's must be at the root of the scene. ~" + path);
-                Debug.LogError("Also make sure all gameObjects are nested under UI.");
+                throw new Exception("Exception you are trying to load a UI, UI's must be at the root of the scene. ~" + path);
+                throw new Exception("Also make sure all gameObjects are nested under UI.");
             }
         }
 
@@ -136,9 +133,19 @@ namespace Bs.Shell
             SceneManager.UnloadSceneAsync(uiToken.scene);
         }
 
-        #region Callbacks
-
-        #endregion
+        /// <summary>
+        /// Derive the controller name as convention to prevent a bunch of busy work.
+        /// </summary>
+        /// <typeparam name="TModel"></typeparam>
+        /// <returns></returns>
+        private string GetControllerName<TModel>()
+        {
+            var typeString = typeof(TModel).ToString();
+            var split = typeString.Split('.');
+            var last = split[split.Length - 1];
+            var splitsplit = last.Split('+');
+            var controllerName = splitsplit[0];
+            return controllerName;
+        }
     }
-
 }

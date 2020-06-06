@@ -26,9 +26,8 @@ namespace Bs.Shell
         }
     }
 
-    public class WaitForControllerTokenYieldInstruction<TModel, TController> : CustomYieldInstruction
+    public class WaitForControllerTokenYieldInstruction<TModel> : CustomYieldInstruction
         where TModel : Model
-        where TController : SceneController<TModel>
     {
         public SceneControllerToken<TModel> controllerToken;
 

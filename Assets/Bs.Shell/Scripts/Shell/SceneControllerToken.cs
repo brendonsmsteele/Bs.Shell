@@ -6,7 +6,7 @@ namespace Bs.Shell
     public class SceneControllerToken<TModel> : SceneControllerToken
         where TModel : Model
     {
-        public SceneController<TModel> sceneController {
+        private SceneController<TModel> sceneController {
             get
             {
                 if(scene == null)
@@ -29,7 +29,7 @@ namespace Bs.Shell
             return (IsLoaded() && guid == otherUIToken.guid);
         }
 
-        public void Raise(TModel model)
+        public void SetModel(TModel model)
         {
             if (!IsLoaded())
                 return;

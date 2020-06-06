@@ -28,12 +28,10 @@ namespace Bs.Shell.Controllers
 
         protected override void OnEnable()
         {
-            throw new NotImplementedException();
         }
 
         protected override void OnDisable()
         {
-            throw new NotImplementedException();
         }
     }
 }

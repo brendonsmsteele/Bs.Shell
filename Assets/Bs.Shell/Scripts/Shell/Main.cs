@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Bs.Shell.Controllers;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace Bs.Shell.Navigation
 {
@@ -13,7 +15,8 @@ namespace Bs.Shell.Navigation
             //  Init the Shell
             InitShell();
             InitServices();
-            loadAndGo.Load();
+            GoToFirstPage();
+            //loadAndGo.Load();
         }
 
         private void InitShell()
@@ -29,7 +32,10 @@ namespace Bs.Shell.Navigation
 
         private void GoToFirstPage()
         {
-            shellServices.NavigationMap.Navigate(NavigationTriggers.Next);
+            var models = new List<Model>();
+            models.Add(new ExampleController.Model());
+            shellServices.NavigationMap.NavigateToPage(models);
+            //shellServices.NavigationMap.Navigate(NavigationTriggers.Next);
         }
     }
 }
