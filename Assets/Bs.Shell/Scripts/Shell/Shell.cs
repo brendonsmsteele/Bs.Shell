@@ -38,7 +38,7 @@ namespace Bs.Shell
         public WaitForControllerTokenYieldInstruction<TModel> LoadControllerAsync<TModel>(Transform parent = null, LoadSceneMode loadSceneMode = LoadSceneMode.Additive)
             where TModel : Model
         {
-            var controllerName = GetControllerName<TModel>();
+            var controllerName = DeriveControllerName<TModel>();
             WaitForControllerTokenYieldInstruction<TModel> waitForUIToken = new WaitForControllerTokenYieldInstruction<TModel>();
             waitForUIToken.controllerToken = new SceneControllerToken<TModel>(Guid.NewGuid());
             scene = null;
@@ -135,17 +135,19 @@ namespace Bs.Shell
 
         /// <summary>
         /// Derive the controller name as convention to prevent a bunch of busy work.
+        /// Bs.Shell.ExampleController+Model
         /// </summary>
         /// <typeparam name="TModel"></typeparam>
         /// <returns></returns>
-        private string GetControllerName<TModel>()
+        private string DeriveControllerName<TModel>()
         {
             var typeString = typeof(TModel).ToString();
-            var split = typeString.Split('.');
-            var last = split[split.Length - 1];
-            var splitsplit = last.Split('+');
-            var controllerName = splitsplit[0];
-            return controllerName;
+            var lastPeriod = typeString.LastIndexOf('.');
+            lastPeriod++;
+            var lastPlusSign = typeString.LastIndexOf('+');
+            var lengthOfControllerName = lastPlusSign - lastPeriod;
+            var controller = typeString.Substring(lastPeriod, lengthOfControllerName);
+            return controller;
         }
     }
 }
