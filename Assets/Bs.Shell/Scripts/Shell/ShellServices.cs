@@ -17,4 +17,3 @@ namespace Bs.Shell
         }
     }
 }
-

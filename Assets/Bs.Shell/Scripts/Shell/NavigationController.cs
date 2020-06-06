@@ -8,7 +8,7 @@ namespace Bs.Shell.Navigation
     [CreateAssetMenu(fileName =nameof(NavigationController), menuName = Shell.Menu.Paths.NAVIGATION + nameof(NavigationController))]
     public class NavigationController : Service
     {
-        [SerializeField] Animator mapPrefab;
+        [SerializeField] GameObject mapPrefab;
         Animator _map;
         Animator map
         {
@@ -93,12 +93,7 @@ namespace Bs.Shell.Navigation
         /// <param name="controllerData"></param>
         public void NavigateToPage(NavigationPage navigationPage)
         {
-            ActiveControllers.Update(navigationPage.ActiveControllers);
-        }
-
-        public void NavigateToPage(List<Model> models)
-        {
-            ActiveControllers.Update(models);
+            ActiveControllers.Update(navigationPage.models);
         }
 
         /// <summary>
@@ -122,12 +117,6 @@ namespace Bs.Shell.Navigation
             get { return _lastNavigatedTrigger; }
         }
         
-        public NavigationPage CreateNavigationPage(params Model[] activePages)
-        {
-            var page = NavigationPage.Create(activePages);
-            return page;
-        }
-
         #region BindDataToController
 
         private void BindDataToController(Model model, SceneControllerToken controllerToken)

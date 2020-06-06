@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff61fce5f3158004e8d071bd254d0662, type: 3}
   m_Name: NavigationController
   m_EditorClassIdentifier: 
-  mapPrefab: {fileID: 0}
+  mapPrefab: {fileID: 8598114342968516514, guid: 2e99676fba5504b4eab3e6d71cd9754f,
+    type: 3}

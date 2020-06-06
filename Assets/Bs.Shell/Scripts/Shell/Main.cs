@@ -34,8 +34,8 @@ namespace Bs.Shell.Navigation
         {
             var models = new List<Model>();
             models.Add(new ExampleController.Model());
-            shellServices.NavigationMap.NavigateToPage(models);
-            //shellServices.NavigationMap.Navigate(NavigationTriggers.Next);
+            //shellServices.NavigationMap.NavigateToPage(models);
+            shellServices.NavigationMap.Navigate(NavigationTriggers.Next);
         }
     }
 }
