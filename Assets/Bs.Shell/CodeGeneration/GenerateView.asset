@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cd6943b4abc5774e9bc0327cc05bb50, type: 3}
+  m_Script: {fileID: 11500000, guid: 0e5ee38908adbd64c9478b945f41d64b, type: 3}
   m_Name: GenerateView
   m_EditorClassIdentifier: 
-  namespace: FooBar
+  namespace: 
   exampleView: {fileID: 11500000, guid: 284fa467444b89748baa6720ded8cc28, type: 3}

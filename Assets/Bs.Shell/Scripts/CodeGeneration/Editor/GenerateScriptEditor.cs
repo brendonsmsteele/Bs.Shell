@@ -3,13 +3,13 @@ using UnityEngine;
 
 namespace Bs.Shell.CodeGeneration
 {
-    [CustomEditor(typeof(GenerateDBV))]
-    public class GenerateDBVEditor : Editor
+    [CustomEditor(typeof(GenerateScript))]
+    public class GenerateScriptEditor : Editor
     {
         public override void OnInspectorGUI()
         {
             DrawDefaultInspector();
-            IGenerate myTarget = (IGenerate)target;
+            GenerateScript myTarget = (GenerateScript)target;
 
             if (GUILayout.Button("Generate"))
                 myTarget.Generate();
