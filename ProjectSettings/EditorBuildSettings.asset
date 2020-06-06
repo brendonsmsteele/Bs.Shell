@@ -12,15 +12,8 @@ EditorBuildSettings:
     path: Assets/Bs.Shell/Scenes/MainMenuController.unity
     guid: 52580af2fa98bbd4b9b3978bc569cfbc
   - enabled: 1
-    path: Assets/Bs.Shell/Scenes/GameController.unity
-    guid: 5a02fb80dd1a2cd4d9187a4a5567055a
-  - enabled: 1
-    path: Assets/Bs.Shell/Scenes/ResultsController.unity
-    guid: 63fa14e173fc7c2449d8e65305bd0ff4
-  - enabled: 1
-    path: Assets/Bs.Shell/Scenes/ArtGalleryController.unity
-    guid: e3ee12c50a5a7114193409319b200aa6
-  - enabled: 1
     path: Assets/Bs.Shell/Scenes/BGController.unity
     guid: 128a422bbab959049893b0d23bb3a2df
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: 0ac86652628708d41ab7b8db1a65c45d,
+      type: 2}

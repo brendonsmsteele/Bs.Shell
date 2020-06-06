@@ -3,20 +3,9 @@ using UnityEngine;
 
 namespace Bs.Shell
 {
-    [CreateAssetMenu(fileName =nameof(ShellServices), menuName = "Bs.Shell/Shell/" + nameof(ShellServices))]
+    [CreateAssetMenu(fileName =nameof(ShellServices), menuName = Shell.Menu.Paths.NAVIGATION + nameof(ShellServices))]
     public class ShellServices : ScriptableObject, IInit
     {
-        static ShellServices _instance;
-        public static ShellServices Instance
-        {
-            get
-            {
-                if (_instance == null)
-                    _instance = Resources.Load("ShellServices") as ShellServices;
-                return _instance;
-            }
-        }
-
         public NavigationController NavigationMap;
         public ObjectPooler ObjectPooler;
 

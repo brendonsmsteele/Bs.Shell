@@ -8,12 +8,6 @@ namespace Bs.Shell.Navigation
     {
         NavigationPage navigationPage;
 
-        SerializedProperty mainMenuProp;
-        SerializedProperty bgProp;
-        SerializedProperty gameProp;
-        SerializedProperty artGalleryProp;
-        SerializedProperty resultsProp;
-
         public void OnEnable()
         {
             navigationPage = (NavigationPage)target;
@@ -21,30 +15,7 @@ namespace Bs.Shell.Navigation
 
         public override void OnInspectorGUI()
         {
-            //DrawDefaultInspector();
-
-            //Render(navigationPage.mainMenu);
-            //Render(navigationPage.bG);
-            //Render(navigationPage.game);
-            //Render(navigationPage.artGallery);
-            //Render(navigationPage.results);
-
-            //mainMenu.Include = GUILayout.Toggle(mainMenu.Include, mainMenu.ControllerName);
-            //if (mainMenu.Include)
-            //{
-            //    GUILayout.Label("includeMainMenu");
-            //}
-
-            //bG.Include = GUILayout.Toggle(bG.Include, bG.ControllerName);
-            //if (bG.Include)
-            //{
-            //    GUILayout.Label("includeBG");
-            //}
-
-            //if (GUILayout.Button("Build Object"))
-            //{
-            //    myScript.Foo();
-            //}
+            DrawDefaultInspector();
         }
 
         private void RenderSpace()
@@ -52,16 +23,19 @@ namespace Bs.Shell.Navigation
             GUILayout.Space(10);
         }
 
-        private void Render<T>(IncludeModel<T> includeModel)
+        private void Render<T>(IncludeModel<T> includeModel, SerializedProperty serializedProp)
             where T : Model
         {
-            GUILayout.BeginVertical("box");
+            GUILayout.BeginVertical(EditorStyles.helpBox);
             includeModel.Include = GUILayout.Toggle(includeModel.Include, includeModel.ControllerName);
             if (includeModel.Include)
             {
-                GUILayout.BeginVertical("box");
-                includeModel.Render();
-                EditorGUILayout.PropertyField(mainMenuProp, new GUIContent("main menu"));
+                GUILayout.BeginVertical(EditorStyles.helpBox);
+                //GUILayout.Label("Hello");
+                //includeModel.Render();
+                //CreateEditor(serializedProp.serializedObject.targetObject).OnInspectorGUI();
+
+                //  Show my serialized Model please!
                 GUILayout.EndVertical();
             }
             RenderSpace();
@@ -69,6 +43,4 @@ namespace Bs.Shell.Navigation
             serializedObject.ApplyModifiedProperties();
         }
     }
-
-
 }

@@ -10,13 +10,13 @@ namespace Bs.Shell
 
     public class UnloadScene : UnloadSceneBase
     {
-        public UnloadScene(ControllerToken token)
+        public UnloadScene(SceneControllerToken token)
         {
             UnloadSceneWatchdog.Start(UnloadSceneRoutine(token));
         }
 
         private CoroutineWatchdog UnloadSceneWatchdog = new CoroutineWatchdog();
-        private IEnumerator UnloadSceneRoutine(ControllerToken token)
+        private IEnumerator UnloadSceneRoutine(SceneControllerToken token)
         {
             //  Return a token that is ready when the scene is finished Unloading!
             var unloader = Bs.Shell.App.Instance.UnloadUI(token);

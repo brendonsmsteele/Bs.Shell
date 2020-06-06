@@ -1,7 +1,9 @@
-﻿namespace Bs.Shell
+﻿using System;
+
+namespace Bs.Shell
 {
-    public class Model 
+    [Serializable]
+    public class Model
     {
-        public string Message;
     }
 }

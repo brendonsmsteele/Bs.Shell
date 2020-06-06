@@ -35,23 +35,23 @@ namespace Bs.Shell
         /// Dictate the type of UI to look for when scene is loaded.
         /// Pass in the UIDataEvent, you create and manage your own UIDataEvent.
         /// All UIs only add to the scene.
-        public WaitForControllerTokenYieldInstruction<TModel, ControllerBase<TModel>> LoadControllerAsync<TModel, TController>(ControllerDataEvent<TModel> controllerDataEvent, Transform parent = null, LoadSceneMode loadSceneMode = LoadSceneMode.Additive)
+        public WaitForControllerTokenYieldInstruction<TModel, SceneController<TModel>> LoadControllerAsync<TModel, TController>(Transform parent = null, LoadSceneMode loadSceneMode = LoadSceneMode.Additive)
             where TModel : Model
-            where TController : ControllerBase<TModel>
+            where TController : SceneController<TModel>
         {
             var type = typeof(TController);
             string path = type.Name;
-            WaitForControllerTokenYieldInstruction<TModel, ControllerBase<TModel>> waitForUIToken = new WaitForControllerTokenYieldInstruction<TModel, ControllerBase<TModel>>();
-            waitForUIToken.controllerToken = new ControllerToken<TModel>(Guid.NewGuid());
+            WaitForControllerTokenYieldInstruction<TModel, SceneController<TModel>> waitForUIToken = new WaitForControllerTokenYieldInstruction<TModel, SceneController<TModel>>();
+            waitForUIToken.controllerToken = new SceneControllerToken<TModel>(Guid.NewGuid());
             scene = null;
             AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(path, loadSceneMode);
-            RunCoroutine.Instance.StartCoroutine(LoadController<TModel, TController>(asyncOperation, waitForUIToken, path, controllerDataEvent, parent));
+            RunCoroutine.Instance.StartCoroutine(LoadController<TModel, TController>(asyncOperation, waitForUIToken, path, parent));
             return waitForUIToken; 
         }
 
-        IEnumerator LoadController<TModel, TController>(AsyncOperation asyncOperation, WaitForControllerTokenYieldInstruction<TModel, ControllerBase<TModel>> waitForControllerToken, string path, ControllerDataEvent<TModel> controllerDataEvent, Transform parent = null)
+        IEnumerator LoadController<TModel, TController>(AsyncOperation asyncOperation, WaitForControllerTokenYieldInstruction<TModel, SceneController<TModel>> waitForControllerToken, string path, Transform parent = null)
             where TModel : Model
-            where TController : ControllerBase<TModel>
+            where TController : SceneController<TModel>
         {
             yield return asyncOperation;
             Debug.Log("Scene Loaded");
@@ -63,24 +63,12 @@ namespace Bs.Shell
                 if (controller != null)
                 {
                     loadedUIs.Add(waitForControllerToken.controllerToken.guid, controller);
-                    if(controllerDataEvent == null)
-                    {
-                        waitForControllerToken.controllerToken.controllerDataEvent = controller.Event;
-                    }
-                    else
-                    {
-                        waitForControllerToken.controllerToken.controllerDataEvent = controllerDataEvent;
-                        controller.Event = controllerDataEvent;
-                    }
                     waitForControllerToken.controllerToken.scene = scene.Value;
-                    
-                    if (parent != null)
-                        root.transform.SetParent(parent, true);
                     controller.token = waitForControllerToken.controllerToken;
                 }
                 else
                 {
-                    Debug.LogError("Exception, UI non existent on root go of scene. ~ " + path);
+                    Debug.LogError("Exception, SceneController non existent on root go of scene. ~ " + path);
                 }
             }
             else
@@ -90,9 +78,9 @@ namespace Bs.Shell
             }
         }
 
-        public TController GetController<TModel, TController>(ControllerToken controllerToken)
+        public TController GetController<TModel, TController>(SceneControllerToken controllerToken)
             where TModel : Model
-            where TController : ControllerBase<TModel>
+            where TController : SceneController<TModel>
         {
             if (!controllerToken.IsLoaded())
             {
@@ -104,7 +92,7 @@ namespace Bs.Shell
             return null;
         }
 
-        IDisposableController GetDisposableUI(ControllerToken uiToken)
+        IDisposableController GetDisposableUI(SceneControllerToken uiToken)
         {
             if (!uiToken.IsLoaded())
             {
@@ -116,8 +104,8 @@ namespace Bs.Shell
             return null;
         }
 
-        List<ControllerToken> uiTokensMarkedForDeath = new List<ControllerToken>();
-        public ManualYieldInstruction UnloadUI(ControllerToken uiToken)
+        List<SceneControllerToken> uiTokensMarkedForDeath = new List<SceneControllerToken>();
+        public ManualYieldInstruction UnloadUI(SceneControllerToken uiToken)
         {
             if (uiToken == null) return null;
             if (uiTokensMarkedForDeath.Contains(uiToken))
@@ -140,7 +128,7 @@ namespace Bs.Shell
             return null;
         }
 
-        public IEnumerator WaitForDisposeToFinish(ManualYieldInstruction manualYield, ControllerToken uiToken)
+        public IEnumerator WaitForDisposeToFinish(ManualYieldInstruction manualYield, SceneControllerToken uiToken)
         {
             yield return manualYield;
             uiTokensMarkedForDeath.Remove(uiToken);

@@ -1,7 +1,7 @@
 ﻿namespace Bs.Shell
 {
-    public interface IController<TData>
+    public interface IController<TModel>
     {
-        void Bind(TData data);
+        TModel model { get; set; }
     }
 }

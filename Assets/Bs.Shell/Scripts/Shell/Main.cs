@@ -4,14 +4,16 @@ namespace Bs.Shell.Navigation
 {
     public class Main : MonoBehaviour
     {
-        public ShellServices services;
+        //  TODO: Remove this lol
+        public ShellServices shellServices;
+        public LoadAndGo loadAndGo;
 
         void Start()
         {
             //  Init the Shell
             InitShell();
             InitServices();
-            GoToFirstPage();
+            loadAndGo.Load();
         }
 
         private void InitShell()
@@ -22,12 +24,12 @@ namespace Bs.Shell.Navigation
 
         private void InitServices()
         {
-            services.Init();
+            shellServices.Init();
         }
 
         private void GoToFirstPage()
         {
-            services.NavigationMap.Navigate(NavigationTriggers.Next);
+            shellServices.NavigationMap.Navigate(NavigationTriggers.Next);
         }
     }
 }

@@ -5,7 +5,7 @@ namespace Bs.Shell
 {
     public static class LoadSceneFactory
     {
-        public static ControllerToken LoadScene(Model model)
+        public static SceneControllerToken LoadScene(Model model)
         {
             if (model is ExampleController.Model)
                 return new LoadScene<ExampleController.Model, ExampleController>((ExampleController.Model)model).waitForToken.controllerToken;

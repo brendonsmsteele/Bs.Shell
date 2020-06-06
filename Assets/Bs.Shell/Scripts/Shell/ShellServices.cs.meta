@@ -3,7 +3,9 @@ guid: 15a34bfa9dff4d846b6a7ba771cd0b6b
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - NavigationMap: {fileID: 11400000, guid: fd7500f5aa2f8934e8784254f8129967, type: 2}
+  - ObjectPooler: {fileID: 11400000, guid: a39a88ad64dcd0e4884b73420c1c8924, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if UNITY_EDITOR
+using System;
 using System.Linq;
 using UnityEditor.Animations;
 using UnityEngine;
@@ -53,4 +54,4 @@ namespace Bs.Shell
         }
     }
 }
-
+#endif

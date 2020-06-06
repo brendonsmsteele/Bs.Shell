@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3433b28f6eb2f684baa2b285c419cc77, type: 3}
   m_Name: GenerateController
   m_EditorClassIdentifier: 
-  namespace: MainMenu
+  namespace: BG
   exampleController: {fileID: 11500000, guid: 3f9f34adb87e82a4eb77b62c0136da68, type: 3}
   exampleControllerDataEvent: {fileID: 11500000, guid: 45a951719db40a548a046a60fb1544e5,
     type: 3}
+  exampleInclude: {fileID: 11500000, guid: f112737c2d5cd554298400107794cd7e, type: 3}

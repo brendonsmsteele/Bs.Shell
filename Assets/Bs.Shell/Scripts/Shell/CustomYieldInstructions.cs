@@ -28,13 +28,13 @@ namespace Bs.Shell
 
     public class WaitForControllerTokenYieldInstruction<TModel, TController> : CustomYieldInstruction
         where TModel : Model
-        where TController : ControllerBase<TModel>
+        where TController : SceneController<TModel>
     {
-        public ControllerToken<TModel> controllerToken;
+        public SceneControllerToken<TModel> controllerToken;
 
         public override bool keepWaiting
         {
-            get { return !controllerToken.IsLoaded() || controllerToken.controllerDataEvent == null; }
+            get { return !controllerToken.IsLoaded(); }
         }
     }
 
@@ -161,9 +161,9 @@ namespace Bs.Shell
     /// </summary>
     public class WaitForControllersToFinishLoading : CustomYieldInstruction
     {
-        List<ControllerToken> controllers = new List<ControllerToken>();
+        List<SceneControllerToken> controllers = new List<SceneControllerToken>();
 
-        public void Update(List<ControllerToken> controllers)
+        public void Update(List<SceneControllerToken> controllers)
         {
             this.controllers = controllers;
         }

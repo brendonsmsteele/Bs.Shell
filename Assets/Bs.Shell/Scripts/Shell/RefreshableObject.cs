@@ -6,14 +6,11 @@ namespace Bs.Shell
     /// This class exists to make shared editor scripts.
     /// </summary>
     /// <typeparam name="TViewModel"></typeparam>
-    public class RefreshableObject : MonoBehaviour, IRefreshable/*, IDirtyable*/
+    public abstract class RefreshableObject : MonoBehaviour, IRefreshable/*, IDirtyable*/
     {
         /// <summary>
         /// Overrided Refresh() and do whatever you want with the data.
         /// </summary>
-        public virtual void Refresh()
-        {
-
-        }
+        public abstract void Refresh();
     }
 }

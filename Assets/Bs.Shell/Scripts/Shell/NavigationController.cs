@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Bs.Shell.Navigation
 {
-    [CreateAssetMenu(fileName =nameof(NavigationController), menuName = "Bs.Shell.Navigation/" + nameof(NavigationController))]
+    [CreateAssetMenu(fileName =nameof(NavigationController), menuName = Shell.Menu.Paths.NAVIGATION + nameof(NavigationController))]
     public class NavigationController : Service
     {
         [SerializeField] Animator mapPrefab;
@@ -20,14 +20,14 @@ namespace Bs.Shell.Navigation
             }
         }
 
-        DiffableDictionary<Model, ControllerToken> _activeControllers;
-        DiffableDictionary<Model, ControllerToken> ActiveControllers
+        DiffableDictionary<Model, SceneControllerToken> _activeControllers;
+        DiffableDictionary<Model, SceneControllerToken> ActiveControllers
         {
             get
             {
                 if(_activeControllers == null)
                 {
-                    _activeControllers = new DiffableDictionary<Model, ControllerToken>(
+                    _activeControllers = new DiffableDictionary<Model, SceneControllerToken>(
                     //  Add
                     (model) =>
                     {
@@ -57,7 +57,7 @@ namespace Bs.Shell.Navigation
             }
         }
 
-        private List<ControllerToken> controllerTokensQueuedToUnload = new List<ControllerToken>();
+        private List<SceneControllerToken> controllerTokensQueuedToUnload = new List<SceneControllerToken>();
         private void UnloadControllerTokensQueuedToUnload()
         {
             for (int i = controllerTokensQueuedToUnload.Count-1; i >= 0; i--)
@@ -125,9 +125,10 @@ namespace Bs.Shell.Navigation
 
         #region BindDataToController
 
-        private void BindDataToController(Model model, ControllerToken controllerToken)
+        private void BindDataToController(Model model, SceneControllerToken controllerToken)
         {
-            controllerToken.Raise(model);
+            //  Need to bind this thing with data.
+            controllerToken.
         }
         
         #endregion
@@ -135,7 +136,7 @@ namespace Bs.Shell.Navigation
 
         #region LoadController
 
-        private ControllerToken LoadController(Model model)
+        private SceneControllerToken LoadController(Model model)
         {
             return LoadSceneFactory.LoadScene(model);
         }

@@ -12,4 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05f60e504eb4072468720046081dbbf8, type: 3}
   m_Name: NavigationPage
   m_EditorClassIdentifier: 
-  ActiveControllers: []
+  mainMenu:
+    Include: 1
+  bg:
+    Include: 1
+    Model:
+      PathToBG: 

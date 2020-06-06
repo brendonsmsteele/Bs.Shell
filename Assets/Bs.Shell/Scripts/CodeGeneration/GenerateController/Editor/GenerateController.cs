@@ -7,11 +7,13 @@ namespace Bs.Shell.CodeGeneration
     {
         [SerializeField] Object exampleController;
         [SerializeField] Object exampleControllerDataEvent;
+        [SerializeField] Object exampleInclude;
 
         public void Generate()
         {
             GenerateTemplate(@namespace, exampleController);
             GenerateTemplate(@namespace, exampleControllerDataEvent);
+            GenerateTemplate(@namespace, exampleInclude);
         }
     }
 }
