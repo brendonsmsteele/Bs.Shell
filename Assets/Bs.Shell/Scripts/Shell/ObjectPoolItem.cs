@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Bs.Shell
+namespace Nc.Shell
 {
     [System.Serializable]
     public class ObjectPoolItem

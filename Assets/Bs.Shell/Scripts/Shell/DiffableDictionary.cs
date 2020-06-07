@@ -12,7 +12,7 @@ using System.Linq;
 /// DiffableDictionary will compare every modified list of data with the list from before, and determine whether it needs to be added, removed, or updated in the internal list.
 /// This uses object comparison by default; however, you can override comparison mechanism via the IEqualityComparer in the constructor.
 /// </summary>
-namespace Bs.Shell
+namespace Nc.Shell
 {
     public class DiffableDictionary<TData, TComponent>
     where TData : class

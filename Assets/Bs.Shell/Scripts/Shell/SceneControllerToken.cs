@@ -1,8 +1,13 @@
 ﻿using System;
 using UnityEngine.SceneManagement;
 
-namespace Bs.Shell
+namespace Nc.Shell
 {
+    /// <summary>
+    /// Contains all navigation meta data for a SceneController
+    /// You can .SetModel() to morph the SceneController
+    /// </summary>
+    /// <typeparam name="TModel"></typeparam>
     public class SceneControllerToken<TModel> : SceneControllerToken
         where TModel : Model
     {

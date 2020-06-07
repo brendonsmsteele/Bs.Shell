@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Bs.Shell.Navigation
+namespace Nc.Shell.Navigation
 {
     public class NuxRuxSwitch : StateMachineBehaviour
     {

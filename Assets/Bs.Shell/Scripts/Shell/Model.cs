@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Bs.Shell
+namespace Nc.Shell
 {
     [Serializable]
     public class Model

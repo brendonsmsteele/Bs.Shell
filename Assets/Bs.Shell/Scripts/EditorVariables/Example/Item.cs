@@ -1,8 +1,7 @@
-﻿using Bs.Shell.EditorVariables;
+﻿using Nc.Shell.Events;
 using UnityEngine;
-using UnityEngine.UI;
 
-namespace Bs.Shell.Examples
+namespace Nc.Shell.Examples
 {
     public class Item : MonoBehaviour
     {

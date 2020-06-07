@@ -4,9 +4,9 @@ using System.Linq;
 using UnityEditor.Animations;
 using UnityEngine;
 
-namespace Bs.Shell
+namespace Nc.Shell
 {
-    [CreateAssetMenu(menuName = "Bs.Shell/" + nameof(MatchTriggers), fileName = nameof(MatchTriggers))]
+    [CreateAssetMenu(menuName = "Nc.Shell/" + nameof(MatchTriggers), fileName = nameof(MatchTriggers))]
     public class MatchTriggers : ScriptableObject, IMatchTriggers
     {
         [SerializeField] GetTriggers getTriggers;

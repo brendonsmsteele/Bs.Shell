@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
-using System.Text;
 using UnityEngine;
 
-namespace Bs.Shell
+namespace Nc.Shell
 {
     public static class Extensions
     {

@@ -1,7 +1,7 @@
-﻿using Bs.Shell.EditorVariables;
+﻿using Nc.Shell.Events;
 using UnityEngine;
 
-namespace Bs.Shell.Examples
+namespace Nc.Shell.Examples
 {
     [RequireComponent(typeof(Animation))]
     public class TestInterpolateAnimation : MonoBehaviour

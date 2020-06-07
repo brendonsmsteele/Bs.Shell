@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace Bs.Shell
+namespace Nc.Shell.Async
 {
     public class RunCoroutine : MonoBehaviour
     {

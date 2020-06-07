@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Bs.Shell.Navigation
+namespace Nc.Shell.Navigation
 {
     public class NavigateTo : StateMachineBehaviour
     {

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Bs.Shell.EditorVariables
+namespace Nc.Shell.Events
 {
-    [CreateAssetMenu(fileName = nameof(GameEvent), menuName = "Bs.Shell/EditorVariables/" + nameof(GameEvent))]
+    [CreateAssetMenu(fileName = nameof(GameEvent), menuName = "Nc.Shell/EditorVariables/" + nameof(GameEvent))]
     public class GameEvent : ScriptableObject
     {
         List<GameEventListener> listeners = new List<GameEventListener>();

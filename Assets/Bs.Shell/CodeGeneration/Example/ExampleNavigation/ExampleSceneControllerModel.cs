@@ -1,12 +1,12 @@
-﻿using Bs.Shell.Controllers;
+﻿using Nc.Shell.UI;
 
-namespace Bs.Shell.Navigation
+namespace Nc.Shell.Navigation
 {
     public class ExampleSceneControllerModel : SceneControllerModel
     {
         public override Model GetModel()
         {
-            var model = new ExampleController.Model();
+            var model = new ExampleSceneController.Model();
             return model;
         }
     }

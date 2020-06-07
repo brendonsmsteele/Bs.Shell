@@ -1,9 +1,8 @@
 ﻿using System;
-using UnityEngine;
 
-namespace Bs.Shell.Views
+namespace Nc.Shell.UI
 {
-    public class ExampleView : ViewController<ExampleView.Model>
+    public class ExampleSceneController : SceneController<ExampleSceneController.Model>
     {
         [Serializable]
         public class Model : Shell.Model
@@ -17,11 +16,11 @@ namespace Bs.Shell.Views
         {
         }
 
-        protected override void OnEnable()
+        public override void SetInteractable(bool interactable)
         {
         }
 
-        protected override void OnDisable()
+        public override void SetShow(bool show)
         {
         }
     }

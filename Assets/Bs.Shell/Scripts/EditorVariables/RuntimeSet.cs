@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Bs.Shell.EditorVariables
+namespace Nc.Shell.Events
 {
     public class RuntimeSet<T> : ScriptableObject
     {

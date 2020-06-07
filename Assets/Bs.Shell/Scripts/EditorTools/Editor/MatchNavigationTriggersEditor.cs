@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace Bs.Shell
+namespace Nc.Shell
 {
     [CustomEditor(typeof(MatchTriggers))]
     public class MatchNavigationTriggersEditor : Editor

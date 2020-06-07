@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace Bs.Shell
+namespace Nc.Shell.Navigation
 {
-    [CreateAssetMenu(menuName = nameof(Bs.Shell) + "/" + nameof(GetNavigationEnumTriggers), fileName = nameof(GetNavigationEnumTriggers))]
+    [CreateAssetMenu(menuName = nameof(Shell) + "/" + nameof(GetNavigationEnumTriggers), fileName = nameof(GetNavigationEnumTriggers))]
     public class GetNavigationEnumTriggers : GetEnumTriggers<NavigationTriggers>
     {
     }

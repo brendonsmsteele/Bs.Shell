@@ -1,4 +1,4 @@
-﻿namespace Bs.Shell.CodeGeneration
+﻿namespace Nc.Shell.CodeGeneration
 {
     public interface IGenerate
     {

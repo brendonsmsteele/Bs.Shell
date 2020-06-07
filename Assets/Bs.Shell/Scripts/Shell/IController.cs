@@ -1,4 +1,4 @@
-﻿namespace Bs.Shell
+﻿namespace Nc.Shell
 {
     public interface IController<TModel>
     {

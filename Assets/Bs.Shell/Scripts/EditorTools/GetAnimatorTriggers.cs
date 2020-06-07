@@ -3,9 +3,9 @@ using System.Linq;
 using UnityEditor.Animations;
 using UnityEngine;
 
-namespace Bs.Shell
+namespace Nc.Shell
 {
-    [CreateAssetMenu(menuName = nameof(Bs.Shell) + "/" + nameof(GetAnimatorTriggers), fileName = nameof(GetAnimatorTriggers))]
+    [CreateAssetMenu(menuName = nameof(Nc.Shell) + "/" + nameof(GetAnimatorTriggers), fileName = nameof(GetAnimatorTriggers))]
     public class GetAnimatorTriggers : GetTriggers
     {
         [SerializeField] AnimatorController animatorController;

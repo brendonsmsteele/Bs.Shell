@@ -1,9 +1,9 @@
-﻿using Bs.Shell.EditorVariables;
+﻿using Nc.Shell.Events;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Bs.Shell.Examples
+namespace Nc.Shell.Examples
 {
     [RequireComponent(typeof(Text))]
     public class TestFloatToText : MonoBehaviour

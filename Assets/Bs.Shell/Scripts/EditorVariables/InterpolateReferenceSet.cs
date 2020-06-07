@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
-namespace Bs.Shell.EditorVariables
+namespace Nc.Shell.Events
 {
-    [CreateAssetMenu(fileName = nameof(InterpolateReferenceSet), menuName = "Bs.Shell/EditorVariables/" + nameof(InterpolateReference))]
+    [CreateAssetMenu(fileName = nameof(InterpolateReferenceSet), menuName = "Nc.Shell/EditorVariables/" + nameof(InterpolateReference))]
     public class InterpolateReferenceSet : RuntimeSet<InterpolateReference> { }
 }

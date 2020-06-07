@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -8,9 +7,9 @@ using UnityEngine;
 /// 3.  Use the Get and Put functions.
 /// 4.  Pooler will automatically call Clean() on any ICleanable.
 /// </summary>
-namespace Bs.Shell
+namespace Nc.Shell
 {
-    [CreateAssetMenu(menuName = "Bs.Shell/Pool/" + nameof(ObjectPooler))]
+    [CreateAssetMenu(menuName = "Nc.Shell/Pool/" + nameof(ObjectPooler))]
     public class ObjectPooler : ScriptableObject, IInit
     {
         public static ObjectPooler Instance;
@@ -67,7 +66,5 @@ namespace Bs.Shell
             gameObject.SetActive(false);
         }
     }
-
-
 }
 

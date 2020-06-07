@@ -1,18 +1,16 @@
-﻿using Bs.Shell.EditorVariables;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// DataBoundViews maintains a collection of views based on an input list of view models.
+/// ModelCollection maintains a collection of views based on an input list of view models.
 /// Calling Bind(List<Model> viewModels) will update the view representation 
 /// If the bound collection contains one or more new view models, they will be created.
-/// If the bound collection does not contain one or more view models currently represented by DataBoundViews, they will be removed.
-/// Any items that exist both in the bound collection and in the DataBoundViews representation will be Refreshed with new view model data
+/// If the bound collection does not contain one or more view models currently represented by ModelCollection, they will be removed.
+/// Any items that exist both in the bound collection and in the ModelCollection representation will be Refreshed with new view model data
 /// </summary>
-namespace Bs.Shell
+namespace Nc.Shell
 {
-    public class DataBoundViewControllers<TModel> : MonoBehaviour
+    public class ModelObjectCollection<TModel> : MonoBehaviour
     where TModel : Model
     {
         public delegate void ViewEvent(TModel viewModel, ViewController<TModel> view, int siblingIndex);

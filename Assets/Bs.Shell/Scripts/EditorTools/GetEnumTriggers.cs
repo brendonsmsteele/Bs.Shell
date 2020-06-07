@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Bs.Shell
+namespace Nc.Shell
 {
     public abstract class GetEnumTriggers<T> : GetTriggers
     {

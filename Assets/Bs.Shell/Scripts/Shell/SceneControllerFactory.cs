@@ -1,14 +1,14 @@
-﻿using Bs.Shell.Controllers;
+﻿using Nc.Shell.UI;
 using System;
 
-namespace Bs.Shell
+namespace Nc.Shell.Navigation
 {
     public static class SceneControllerFactory
     {
         public static SceneControllerToken LoadScene(Model model)
         {
-            if(model.GetType() == typeof(ExampleController.Model))
-                return LoadScene((ExampleController.Model)model);
+            if(model.GetType() == typeof(ExampleSceneController.Model))
+                return LoadScene((ExampleSceneController.Model)model);
             else
                 throw new NotImplementedException($"Missing unbox for model of type {model.GetType()}");
         }
@@ -21,8 +21,8 @@ namespace Bs.Shell
 
         public static void SetModel(Model model, SceneControllerToken sceneControllerToken)
         {
-            if (model.GetType() == typeof(ExampleController.Model))
-                SetModel((ExampleController.Model)model, sceneControllerToken);
+            if (model.GetType() == typeof(ExampleSceneController.Model))
+                SetModel((ExampleSceneController.Model)model, sceneControllerToken);
             else
                 throw new NotImplementedException($"Missing unbox for model of type {model.GetType()}");
         }

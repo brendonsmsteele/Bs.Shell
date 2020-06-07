@@ -1,7 +1,8 @@
-﻿using Bs.Shell.Navigation;
+﻿using Nc.Shell.Navigation;
+using Nc.Shell.UI;
 using UnityEngine;
 
-namespace Bs.Shell
+namespace Nc.Shell
 {
     [CreateAssetMenu(fileName =nameof(ShellServices), menuName = Shell.Menu.Paths.NAVIGATION + nameof(ShellServices))]
     public class ShellServices : ScriptableObject, IInit

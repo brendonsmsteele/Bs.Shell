@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Bs.Shell.Navigation
+namespace Nc.Shell.Navigation
 {
     public static class NavigationHashName
     {

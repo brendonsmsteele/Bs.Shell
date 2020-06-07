@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace Bs.Shell.CodeGeneration
+namespace Nc.Shell.CodeGeneration
 {
     public abstract class Generate : ScriptableObject
     {

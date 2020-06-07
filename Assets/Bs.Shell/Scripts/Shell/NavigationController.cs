@@ -1,9 +1,12 @@
-﻿using System.Collections;
+﻿using Nc.Shell.Async;
+using Nc.Shell.Services;
+using Nc.Shell.UI;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Bs.Shell.Navigation
+namespace Nc.Shell.Navigation
 {
     [CreateAssetMenu(fileName =nameof(NavigationController), menuName = Shell.Menu.Paths.NAVIGATION + nameof(NavigationController))]
     public class NavigationController : Service

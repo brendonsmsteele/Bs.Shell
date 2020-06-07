@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: GenerateController
   m_EditorClassIdentifier: 
   namespace: 
-  exampleView: {fileID: 11500000, guid: 3f9f34adb87e82a4eb77b62c0136da68, type: 3}
+  exampleView: {fileID: 11500000, guid: 01fea0697b17dad489d6080432cacbca, type: 3}

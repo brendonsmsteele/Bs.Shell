@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace Bs.Shell.EditorVariables
+namespace Nc.Shell.Events
 {
-    [CreateAssetMenu(fileName = nameof(InterpolateVariable), menuName = "Bs.Shell/EditorVariables/"+ nameof(InterpolateVariable))]
+    [CreateAssetMenu(fileName = nameof(InterpolateVariable), menuName = "Nc.Shell/EditorVariables/"+ nameof(InterpolateVariable))]
     public class InterpolateVariable : ScriptableObject
     {
         float value = 0f;

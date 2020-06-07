@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using Nc.Shell.UI;
+using UnityEngine;
 
-namespace Bs.Shell
+namespace Nc.Shell.Services
 {
     public abstract class Service : ScriptableObject, IInit
     {

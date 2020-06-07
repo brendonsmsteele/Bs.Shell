@@ -1,18 +1,21 @@
-﻿public enum NavigationTriggers
+﻿namespace Nc.Shell.Navigation
 {
-    //  These triggers should always exist.
+    public enum NavigationTriggers
+    {
+        //  These triggers should always exist.
 
-    Next,
-    Up,
-    Nux,
-    Rux,
-    Restart,
-    Proxy,  
+        Next,
+        Up,
+        Nux,
+        Rux,
+        Restart,
+        Proxy,  
 
-    //  Add your app custom triggers here
+        //  Add your app custom triggers here
 
-    MainMenu,
-    Tutorial,
-    Game,
-    Result
+        MainMenu,
+        Tutorial,
+        Game,
+        Result
+    }
 }

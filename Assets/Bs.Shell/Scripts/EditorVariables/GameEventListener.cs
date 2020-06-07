@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-namespace Bs.Shell.EditorVariables
+namespace Nc.Shell.Events
 {
     public class GameEventListener : MonoBehaviour
     {

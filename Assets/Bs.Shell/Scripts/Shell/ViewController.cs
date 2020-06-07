@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 
-namespace Bs.Shell
+namespace Nc.Shell
 {
     /// <summary>
     /// This view contains a model, and is responsible for binding a model to it's given GameObjects/Components
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
-    public abstract class ViewController<TModel> : RefreshableObject, IController<TModel>, ICleanable
+    public abstract class ViewController<TModel> : RefreshableObject, IController<TModel>, IInteractable, IShowable, ICleanable
         where TModel : Model
     {
         [SerializeField]
@@ -26,17 +26,17 @@ namespace Bs.Shell
         }
 
         /// <summary>
-        /// Subscribe to event listeners
+        /// Sub/Unsub to event listeners.
         /// </summary>
-        protected abstract void OnEnable();
+        public abstract void SetInteractable(bool interactable);
 
         /// <summary>
-        /// Unsubscribe from event listeners
+        /// Show or Hide you decide.
         /// </summary>
-        protected abstract void OnDisable();
+        public abstract void SetShow(bool show);
 
         /// <summary>
-        /// Use this when pooling and reset state
+        /// Call clean when pooling
         /// </summary>
         public virtual void Clean()
         {

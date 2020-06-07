@@ -1,6 +1,6 @@
 ﻿using UnityEditor;
 
-namespace Bs.Shell.EditorVariables
+namespace Nc.Shell.Events
 {
     [CustomEditor(typeof(InterpolateVariable))]
     public class InterpolateVariableEditor : Editor

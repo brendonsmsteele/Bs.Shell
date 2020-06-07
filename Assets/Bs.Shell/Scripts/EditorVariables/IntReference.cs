@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Bs.Shell.EditorVariables
+namespace Nc.Shell.Events
 {
     [Serializable]
     public class IntReference

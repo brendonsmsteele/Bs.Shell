@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace Bs.Shell.CodeGeneration
+namespace Nc.Shell.CodeGeneration
 {
-    [CreateAssetMenu(fileName = nameof(GenerateScript), menuName = "Bs.Shell/App/CodeGeneration/" + nameof(GenerateScript))]
+    [CreateAssetMenu(fileName = nameof(GenerateScript), menuName = "Nc.Shell/App/CodeGeneration/" + nameof(GenerateScript))]
     public class GenerateScript : Generate, IGenerate
     {
         [SerializeField] Object exampleView;

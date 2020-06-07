@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-namespace Bs.Shell.Navigation
+namespace Nc.Shell.Navigation
 {
     /// <summary>
     /// Aggregates SceneControllerModel(s)

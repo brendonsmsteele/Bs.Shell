@@ -1,10 +1,12 @@
-﻿namespace Bs.Shell
+﻿using Nc.Shell.Async;
+
+namespace Nc.Shell
 {
-    public abstract class SceneController<TModel> : ViewController<TModel>, IDisposableController
+    public abstract class SceneController<TModel> : ViewController<TModel>, IDisposableAsync
         where TModel : Model
     {
-        SceneControllerToken _token;
-        public SceneControllerToken token
+        SceneControllerToken<TModel> _token;
+        public SceneControllerToken<TModel> token
         {
             get { return _token; }
             set
@@ -14,31 +16,16 @@
             }
         }
 
-        public new virtual ManualYieldInstruction Dispose()
-        {
-            ManualYieldInstruction manualYield = new ManualYieldInstruction();
-            manualYield.IsDone = true;  
-            return manualYield;
-        }
-
         protected virtual void OnAssignedControllerToken()
         {
             token.preloadingSceneAssets = false;
         }
 
-        /// <summary>
-        /// Check for null because token is null if app not started from Main.unity
-        /// </summary>
-        protected void PreloadingSceneAssetsComplete()
+        public virtual ManualYieldInstruction Dispose()
         {
-            if (token != null)
-                token.preloadingSceneAssets = false;    //  Releases after the thread is done locking up.  klol
-        }
-
-        public ManualYieldInstruction GetTimedYield(float f)
-        {
-            //return new SetManualYieldInstructionAfterDelayAndOtherYieldIsDone(f, NavigationMapController.Instance);
-            return new SetManualYieldInstructionOnDelay(f).ManualYieldInstruction;
+            ManualYieldInstruction manualYield = new TimedManualYieldInstruction(0f); 
+            manualYield.IsDone = true;
+            return manualYield;
         }
     }
 }

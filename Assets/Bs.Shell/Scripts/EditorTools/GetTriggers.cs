@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Bs.Shell
+namespace Nc.Shell
 {
     public abstract class GetTriggers : ScriptableObject, IGetTriggers
     {

@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Nc.Shell.Async;
+using System;
 using System.Collections;
 
-namespace Bs.Shell
+namespace Nc.Shell.Navigation
 {
     public class LoadSceneBase
     {

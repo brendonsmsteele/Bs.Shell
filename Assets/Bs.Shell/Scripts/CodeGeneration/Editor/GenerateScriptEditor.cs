@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-namespace Bs.Shell.CodeGeneration
+namespace Nc.Shell.CodeGeneration
 {
     [CustomEditor(typeof(GenerateScript))]
     public class GenerateScriptEditor : Editor

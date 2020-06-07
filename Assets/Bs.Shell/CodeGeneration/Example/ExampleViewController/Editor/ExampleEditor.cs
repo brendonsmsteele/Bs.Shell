@@ -1,15 +1,15 @@
 ﻿using UnityEditor;
 
-namespace Bs.Shell.Views
+namespace Nc.Shell.UI
 {
-    [CustomEditor(typeof(ExampleView))]
+    [CustomEditor(typeof(ExampleViewController))]
     public class ExampleEditor : Editor
     {
         public override void OnInspectorGUI()
         {
             DrawDefaultInspector();
 
-            ExampleView myScript = (ExampleView)target;
+            ExampleViewController myScript = (ExampleViewController)target;
             //if (GUILayout.Button("Build Object"))
             //{
             //    myScript.Foo();

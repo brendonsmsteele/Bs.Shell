@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-namespace Bs.Shell
+namespace Nc.Shell.UI
 {
     [CustomEditor(typeof(RefreshableObject), true)]
     public class RefreshableObjectEditor : Editor

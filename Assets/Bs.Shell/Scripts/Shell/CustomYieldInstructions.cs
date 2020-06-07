@@ -1,11 +1,15 @@
-﻿using System.Collections;
+﻿using Nc.Shell.UI;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
 
-namespace Bs.Shell
+namespace Nc.Shell.Async
 {
+    /// <summary>
+    /// Wait until .IsDone = true
+    /// </summary>
     public class ManualYieldInstruction : CustomYieldInstruction
     {
         public bool IsDone = false;
@@ -16,13 +20,32 @@ namespace Bs.Shell
         }
     }
 
-    public class WaitForGameObjectYieldInstruction : CustomYieldInstruction
+    /// <summary>
+    /// Wait until .IsDone = true || time runs out
+    /// </summary>
+    public class TimedManualYieldInstruction : ManualYieldInstruction
     {
-        public GameObject gameObject;
+        private CoroutineWatchdog DisposeRoutineWatchdog = new CoroutineWatchdog();
+
+        public TimedManualYieldInstruction(float f)
+        {
+            DisposeRoutineWatchdog.Start(DisposeRoutine(f));
+        }
+
+        private IEnumerator DisposeRoutine(float f)
+        {
+            yield return new WaitForSeconds(f);
+            this.IsDone = true;
+        }
+    }
+
+    public class WaitForObjectYieldInstruction<T> : CustomYieldInstruction
+    {
+        public T t;
 
         public override bool keepWaiting
         {
-            get { return gameObject != null; }
+            get { return t != null; }
         }
     }
 

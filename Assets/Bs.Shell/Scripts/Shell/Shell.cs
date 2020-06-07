@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Nc.Shell.Async;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Bs.Shell
+namespace Nc.Shell
 {
     [CreateAssetMenu(fileName = nameof(App), menuName = Shell.Menu.Paths.APP + nameof(App))]
     public class App : ScriptableObject
@@ -15,14 +16,14 @@ namespace Bs.Shell
             get { return _instance; }
         }
 
-        Dictionary<Guid, IDisposableController> loadedUIs;
+        Dictionary<Guid, IDisposableAsync> loadedUIs;
         Scene? scene = null;
 
         public void Init()
         {
             Debug.Log("Shell.Init");
             _instance = this;
-            loadedUIs = new Dictionary<Guid, IDisposableController>();
+            loadedUIs = new Dictionary<Guid, IDisposableAsync>();
             SceneManager.sceneLoaded += SceneManager_sceneLoaded;
         }
 
@@ -89,7 +90,7 @@ namespace Bs.Shell
             return null;
         }
 
-        IDisposableController GetDisposableUI(SceneControllerToken uiToken)
+        IDisposableAsync GetDisposableUI(SceneControllerToken uiToken)
         {
             if (!uiToken.IsLoaded())
             {
@@ -135,7 +136,7 @@ namespace Bs.Shell
 
         /// <summary>
         /// Derive the controller name as convention to prevent a bunch of busy work.
-        /// Bs.Shell.ExampleController+Model
+        /// Nc.Shell.ExampleController+Model
         /// </summary>
         /// <typeparam name="TModel"></typeparam>
         /// <returns></returns>
