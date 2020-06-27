@@ -3,7 +3,7 @@
 namespace Nc.Shell
 {
     public abstract class SceneController<TModel> : ViewController<TModel>, IDisposableAsync
-        where TModel : Model
+        where TModel : SceneControllerModel
     {
         SceneControllerToken<TModel> _token;
         public SceneControllerToken<TModel> token

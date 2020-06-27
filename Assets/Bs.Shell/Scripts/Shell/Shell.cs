@@ -16,14 +16,14 @@ namespace Nc.Shell
             get { return _instance; }
         }
 
-        Dictionary<Guid, IDisposableAsync> loadedUIs;
+        Dictionary<Guid, IDisposableAsync> loadedControllers;
         Scene? scene = null;
 
         public void Init()
         {
             Debug.Log("Shell.Init");
             _instance = this;
-            loadedUIs = new Dictionary<Guid, IDisposableAsync>();
+            loadedControllers = new Dictionary<Guid, IDisposableAsync>();
             SceneManager.sceneLoaded += SceneManager_sceneLoaded;
         }
 
@@ -36,20 +36,19 @@ namespace Nc.Shell
         /// Dictate the type of UI to look for when scene is loaded.
         /// Pass in the UIDataEvent, you create and manage your own UIDataEvent.
         /// All UIs only add to the scene.
-        public WaitForControllerTokenYieldInstruction<TModel> LoadControllerAsync<TModel>(Transform parent = null, LoadSceneMode loadSceneMode = LoadSceneMode.Additive)
-            where TModel : Model
+        public SceneControllerToken<TModel> LoadSceneControllerAsync<TModel>(TModel model, Transform parent = null, LoadSceneMode loadSceneMode = LoadSceneMode.Additive)
+            where TModel : SceneControllerModel
         {
             var controllerName = DeriveControllerName<TModel>();
-            WaitForControllerTokenYieldInstruction<TModel> waitForUIToken = new WaitForControllerTokenYieldInstruction<TModel>();
-            waitForUIToken.controllerToken = new SceneControllerToken<TModel>(Guid.NewGuid());
+            var token = new SceneControllerToken<TModel>(Guid.NewGuid(), model);
             scene = null;
             AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(controllerName, loadSceneMode);
-            RunCoroutine.Instance.StartCoroutine(LoadController<TModel>(asyncOperation, waitForUIToken, controllerName, parent));
-            return waitForUIToken; 
+            RunCoroutine.Instance.StartCoroutine(LoadController<TModel>(asyncOperation, token, controllerName, parent));
+            return token; 
         }
 
-        IEnumerator LoadController<TModel>(AsyncOperation asyncOperation, WaitForControllerTokenYieldInstruction<TModel> waitForControllerToken, string path, Transform parent = null)
-            where TModel : Model
+        IEnumerator LoadController<TModel>(AsyncOperation asyncOperation, SceneControllerToken<TModel> token, string path, Transform parent = null)
+            where TModel : SceneControllerModel
         {
             yield return asyncOperation;
             Debug.Log("Scene Loaded");
@@ -60,9 +59,9 @@ namespace Nc.Shell
                 SceneController<TModel> controller = root.GetComponent<SceneController<TModel>>();
                 if (controller != null)
                 {
-                    loadedUIs.Add(waitForControllerToken.controllerToken.guid, controller);
-                    waitForControllerToken.controllerToken.scene = scene.Value;
-                    controller.token = waitForControllerToken.controllerToken;
+                    loadedControllers.Add(token.guid, controller);
+                    token.scene = scene.Value;
+                    controller.token = token;
                 }
                 else
                 {
@@ -77,50 +76,50 @@ namespace Nc.Shell
         }
 
         public TController GetController<TModel, TController>(SceneControllerToken controllerToken)
-            where TModel : Model
+            where TModel : SceneControllerModel
             where TController : SceneController<TModel>
         {
-            if (!controllerToken.IsLoaded())
+            if (controllerToken.keepWaiting)
             {
-                Debug.LogError("UIToken is not loaded!");
+                Debug.LogError("Token is not loaded!");
                 return null;
             }
-            if (loadedUIs.ContainsKey(controllerToken.guid))
-                return loadedUIs[controllerToken.guid] as TController;
+            if (loadedControllers.ContainsKey(controllerToken.guid))
+                return loadedControllers[controllerToken.guid] as TController;
             return null;
         }
 
-        IDisposableAsync GetDisposableUI(SceneControllerToken uiToken)
+        IDisposableAsync GetDisposableUI(SceneControllerToken token)
         {
-            if (!uiToken.IsLoaded())
+            if (token.keepWaiting)
             {
-                Debug.LogError("UIToken is not loaded!");
+                Debug.LogError("Token is not loaded!");
                 return null;
             }
-            if (loadedUIs.ContainsKey(uiToken.guid))
-                return loadedUIs[uiToken.guid];
+            if (loadedControllers.ContainsKey(token.guid))
+                return loadedControllers[token.guid];
             return null;
         }
 
-        List<SceneControllerToken> uiTokensMarkedForDeath = new List<SceneControllerToken>();
-        public ManualYieldInstruction UnloadUI(SceneControllerToken uiToken)
+        List<SceneControllerToken> tokensMarkedForDeath = new List<SceneControllerToken>();
+        public ManualYieldInstruction UnloadSceneController(SceneControllerToken token)
         {
-            if (uiToken == null) return null;
-            if (uiTokensMarkedForDeath.Contains(uiToken))
+            if (token == null) return null;
+            if (tokensMarkedForDeath.Contains(token))
             {
-                Debug.LogError("UIToken is marked for death!");
+                Debug.LogError("Token is marked for death!");
                 return null;
             }
-            if (!uiToken.IsLoaded())
+            if (token.keepWaiting)
             {
-                Debug.LogError("UIToken is not loaded!");
+                Debug.LogError("Token is not loaded!");
                 return null;
             }
-            if (loadedUIs.ContainsKey(uiToken.guid))
+            if (loadedControllers.ContainsKey(token.guid))
             {
-                ManualYieldInstruction disposeManualYieldInstruction = GetDisposableUI(uiToken).Dispose();
-                uiTokensMarkedForDeath.Add(uiToken);
-                RunCoroutine.Instance.StartCoroutine(WaitForDisposeToFinish(disposeManualYieldInstruction, uiToken));
+                ManualYieldInstruction disposeManualYieldInstruction = GetDisposableUI(token).Dispose();
+                tokensMarkedForDeath.Add(token);
+                RunCoroutine.Instance.StartCoroutine(WaitForDisposeToFinish(disposeManualYieldInstruction, token));
                 return disposeManualYieldInstruction;
             }
             return null;
@@ -129,8 +128,8 @@ namespace Nc.Shell
         public IEnumerator WaitForDisposeToFinish(ManualYieldInstruction manualYield, SceneControllerToken uiToken)
         {
             yield return manualYield;
-            uiTokensMarkedForDeath.Remove(uiToken);
-            loadedUIs.Remove(uiToken.guid);
+            tokensMarkedForDeath.Remove(uiToken);
+            loadedControllers.Remove(uiToken.guid);
             SceneManager.UnloadSceneAsync(uiToken.scene);
         }
 

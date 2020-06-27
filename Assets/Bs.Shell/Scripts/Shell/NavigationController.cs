@@ -23,18 +23,18 @@ namespace Nc.Shell.Navigation
             }
         }
 
-        DiffableDictionary<Model, SceneControllerToken> _activeControllers;
-        DiffableDictionary<Model, SceneControllerToken> ActiveControllers
+        DiffableDictionary<SceneControllerModel, SceneControllerToken> _activeControllers;
+        DiffableDictionary<SceneControllerModel, SceneControllerToken> ActiveControllers
         {
             get
             {
                 if(_activeControllers == null)
                 {
-                    _activeControllers = new DiffableDictionary<Model, SceneControllerToken>(
+                    _activeControllers = new DiffableDictionary<SceneControllerModel, SceneControllerToken>(
                     //  Add
                     (model) =>
                     {
-                        return LoadController(model);
+                        return model.LoadScene();
                     },
                     //  Update
                     (model, controllerToken, i) =>
@@ -65,7 +65,8 @@ namespace Nc.Shell.Navigation
         {
             for (int i = controllerTokensQueuedToUnload.Count-1; i >= 0; i--)
             {
-                var unloader = new UnloadScene(controllerTokensQueuedToUnload[i]);
+                var token = controllerTokensQueuedToUnload[i];
+                var unloader = App.Instance.UnloadSceneController(token);
             }
             controllerTokensQueuedToUnload.Clear();
         }
@@ -122,21 +123,15 @@ namespace Nc.Shell.Navigation
         
         #region BindDataToController
 
-        private void BindDataToController(Model model, SceneControllerToken controllerToken)
+        private void BindDataToController(SceneControllerModel model, SceneControllerToken controllerToken)
         {
-            //  Need to bind this thing with data.
-            SceneControllerFactory.SetModel(model, controllerToken);
+            controllerToken.TrySetModel(model);
         }
         
         #endregion
 
 
         #region LoadController
-
-        private SceneControllerToken LoadController(Model model)
-        {
-            return SceneControllerFactory.LoadScene(model);
-        }
 
         public override void Init()
         {

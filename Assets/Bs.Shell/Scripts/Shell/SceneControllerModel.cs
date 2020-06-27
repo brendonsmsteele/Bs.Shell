@@ -1,9 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
 
-namespace Nc.Shell.Navigation
+namespace Nc.Shell
 {
-    public abstract class SceneControllerModel : StateMachineBehaviour
+    [Serializable]
+    public abstract class SceneControllerModel : Model
     {
-        public abstract Model GetModel();
+        public abstract SceneControllerToken LoadScene();
     }
 }

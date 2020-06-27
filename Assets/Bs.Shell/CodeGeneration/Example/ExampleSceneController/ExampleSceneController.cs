@@ -1,14 +1,20 @@
-﻿using System;
+﻿using Nc.Shell.Navigation;
+using System;
 
 namespace Nc.Shell.UI
 {
     public class ExampleSceneController : SceneController<ExampleSceneController.Model>
     {
         [Serializable]
-        public class Model : Shell.Model
+        public class Model : SceneControllerModel
         {
             public Model()
             {
+            }
+
+            public override SceneControllerToken LoadScene()
+            {
+                return App.Instance.LoadSceneControllerAsync<Model>(this);
             }
         }
 

@@ -49,14 +49,13 @@ namespace Nc.Shell.Async
         }
     }
 
-    public class WaitForControllerTokenYieldInstruction<TModel> : CustomYieldInstruction
-        where TModel : Model
+    public class WaitForLoadable : CustomYieldInstruction
     {
-        public SceneControllerToken<TModel> controllerToken;
+        public ILoadable loadable;
 
         public override bool keepWaiting
         {
-            get { return !controllerToken.IsLoaded(); }
+            get { return !loadable.IsLoaded(); }
         }
     }
 

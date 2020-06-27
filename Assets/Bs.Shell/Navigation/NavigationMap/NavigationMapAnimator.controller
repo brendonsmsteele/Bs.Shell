@@ -637,8 +637,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneControllerModels:
-  - {fileID: -7093618124818883365}
+  - {fileID: 2243648918508710979}
   shellServices: {fileID: 11400000, guid: e78441f4c9a2ba04c9847edbd03c22bc, type: 2}
+--- !u!114 &2243648918508710979
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88e40f8333675f444bbaee538400148f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1101 &2409991706341774765
 AnimatorStateTransition:
   m_ObjectHideFlags: 3
@@ -785,7 +797,7 @@ AnimatorState:
   - {fileID: 7921730119076827433}
   m_StateMachineBehaviours:
   - {fileID: 2219789999759684968}
-  - {fileID: -7093618124818883365}
+  - {fileID: 2243648918508710979}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1

@@ -6,8 +6,8 @@ namespace Nc.Shell.Navigation
     /// </summary>
     public class NavigationPage
     {
-        public List<Model> models;
-        public NavigationPage(List<Model> models)
+        public List<SceneControllerModel> models;
+        public NavigationPage(List<SceneControllerModel> models)
         {
             this.models = models;
         }

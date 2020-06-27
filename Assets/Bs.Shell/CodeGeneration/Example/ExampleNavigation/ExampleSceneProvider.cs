@@ -2,9 +2,9 @@
 
 namespace Nc.Shell.Navigation
 {
-    public class ExampleSceneControllerModel : SceneControllerModel
+    public class ExampleSceneProvider : SceneProvider
     {
-        public override Model GetModel()
+        public override SceneControllerModel GetModel()
         {
             var model = new ExampleSceneController.Model();
             return model;

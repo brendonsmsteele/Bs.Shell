@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Nc.Shell.Navigation;
+using System;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Nc.Shell
@@ -9,7 +11,7 @@ namespace Nc.Shell
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
     public class SceneControllerToken<TModel> : SceneControllerToken
-        where TModel : Model
+        where TModel : SceneControllerModel
     {
         private SceneController<TModel> sceneController {
             get
@@ -23,10 +25,12 @@ namespace Nc.Shell
                 return target;
             }
         }
+        private TModel model;
 
-        public SceneControllerToken(Guid guid)
+        public SceneControllerToken(Guid guid, TModel model)
         {
             this.guid = guid;
+            this.model = model;
         }
 
         public bool Equals(SceneControllerToken otherUIToken)
@@ -34,20 +38,45 @@ namespace Nc.Shell
             return (IsLoaded() && guid == otherUIToken.guid);
         }
 
-        public void SetModel(TModel model)
+        private void SetModel()
         {
-            if (!IsLoaded())
+            if (keepWaiting)
+            {
+                Debug.LogWarning("SceneController is still loading, will not set model.");
                 return;
+            }
             sceneController.model = model;
+        }
+
+        public override void TrySetModel(SceneControllerModel model)
+        {
+            try
+            {
+                var unbox = (TModel)model;
+                this.model = unbox;
+                SetModel();
+            }
+            catch(InvalidCastException e)
+            {
+                Debug.LogException(e);
+            }
         }
     }
 
-    public abstract class SceneControllerToken
+    public abstract class SceneControllerToken : CustomYieldInstruction, ILoadable
     {
         public Guid guid;
         public Scene scene;
         public bool disposeInProgress;
         public bool preloadingSceneAssets = true;
+
+        public override bool keepWaiting
+        {
+            get
+            {
+                return !IsLoaded();
+            }
+        }
 
         public bool IsLoaded()
         {
@@ -58,5 +87,7 @@ namespace Nc.Shell
         {
             return IsLoaded() && !preloadingSceneAssets;
         }
+
+        public abstract void TrySetModel(SceneControllerModel model);
     }
 }
